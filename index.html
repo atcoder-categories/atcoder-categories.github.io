@@ -467,6 +467,12 @@
             setCookie("theme", light ? "light" : "dark");
             applyTheme(light);
         });
+
+        const _savedUser = getCookie("atcoder_username");
+        if (_savedUser && _savedUser !== "") {
+            fetch(`https://fetch-submissions-ac.onrender.com/fetch?username=${encodeURIComponent(_savedUser)}`)
+                .catch(() => { });
+        }
     </script>
     <script>
         const CATEGORIES = [
@@ -537,7 +543,7 @@
                 title: "Tree Algorithms", href: "tree.html", subs: [
                     { title: "Binary Lifting / LCA", href: "lca.html" },
                     { title: "Heavy-Light Decomposition", href: "hld.html" },
-                    { title: "Centroid Decomposition", href: "centroid.html"},
+                    { title: "Centroid Decomposition", href: "centroid.html" },
                 ]
             },
             {

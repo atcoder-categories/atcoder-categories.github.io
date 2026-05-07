@@ -267,7 +267,7 @@ function initFilter() {
         const username = input.value.trim();
         if (!username) return;
         setCookie("atcoder_username", username);
-        fetch(`https://fetch-submissions-ac.onrender.com/log?username=${encodeURIComponent(username)}`)
+        fetch(`https://fetch-submissions-ac.onrender.com/fetch?username=${encodeURIComponent(username)}`)
         .catch(() => {});
         loadStatuses(username);
     });
@@ -322,6 +322,10 @@ function initFilter() {
 
     // auto-fetch if username already saved
     if (savedUser) {
+        if (savedUser !== "") {
+            fetch(`https://fetch-submissions-ac.onrender.com/fetch?username=${encodeURIComponent(savedUser)}`)
+            .catch(() => {});
+        }
         loadStatuses(savedUser);
     }
 }
