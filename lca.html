@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Binary Lifting / LCA</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Binary Lifting / LCA</span></div>
+    <h1>Binary Lifting / LCA</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc201_e", "contest_id": "abc201", "problem_index": "E", "title": "E. Xor Distances", "difficulty": 1694, "url": "https://atcoder.jp/contests/abc201/tasks/abc201_e", "datetime": 1621080000}, {"id": "abc202_e", "contest_id": "abc202", "problem_index": "E", "title": "E. Count Descendants", "difficulty": 1638, "url": "https://atcoder.jp/contests/abc202/tasks/abc202_e", "datetime": 1621684800}, {"id": "abc220_e", "contest_id": "abc220", "problem_index": "E", "title": "E. Distance on Large Perfect Binary Tree", "difficulty": 1593, "url": "https://atcoder.jp/contests/abc220/tasks/abc220_e", "datetime": 1632657600}, {"id": "abc258_e", "contest_id": "abc258", "problem_index": "E", "title": "E. Packing Potatoes", "difficulty": 1545, "url": "https://atcoder.jp/contests/abc258/tasks/abc258_e", "datetime": 1656763200}, {"id": "abc267_f", "contest_id": "abc267", "problem_index": "F", "title": "F. Exactly K Steps", "difficulty": 1939, "url": "https://atcoder.jp/contests/abc267/tasks/abc267_f", "datetime": 1662206400}, {"id": "abc269_h", "contest_id": "abc269", "problem_index": "Ex", "title": "Ex. Antichain", "difficulty": 3178, "url": "https://atcoder.jp/contests/abc269/tasks/abc269_h", "datetime": 1663416000}, {"id": "abc274_h", "contest_id": "abc274", "problem_index": "Ex", "title": "Ex. XOR Sum of Arrays", "difficulty": 3191, "url": "https://atcoder.jp/contests/abc274/tasks/abc274_h", "datetime": 1666440000}, {"id": "abc293_h", "contest_id": "abc293", "problem_index": "Ex", "title": "Ex. Optimal Path Decomposition", "difficulty": 2831, "url": "https://atcoder.jp/contests/abc293/tasks/abc293_h", "datetime": 1678536000}, {"id": "abc294_g", "contest_id": "abc294", "problem_index": "G", "title": "G. Distance Queries on a Tree", "difficulty": 1702, "url": "https://atcoder.jp/contests/abc294/tasks/abc294_g", "datetime": 1679227200}, {"id": "abc298_h", "contest_id": "abc298", "problem_index": "Ex", "title": "Ex. Sum of Min of Length", "difficulty": 2792, "url": "https://atcoder.jp/contests/abc298/tasks/abc298_h", "datetime": 1681560000}, {"id": "abc321_e", "contest_id": "abc321", "problem_index": "E", "title": "E. Complete Binary Tree", "difficulty": 1627, "url": "https://atcoder.jp/contests/abc321/tasks/abc321_e", "datetime": 1695470400}, {"id": "abc329_g", "contest_id": "abc329", "problem_index": "G", "title": "G. Delivery on Tree", "difficulty": 2995, "url": "https://atcoder.jp/contests/abc329/tasks/abc329_g", "datetime": 1700308800}, {"id": "abc340_g", "contest_id": "abc340", "problem_index": "G", "title": "G. Leaf Color", "difficulty": 2401, "url": "https://atcoder.jp/contests/abc340/tasks/abc340_g", "datetime": 1707566400}, {"id": "abc378_f", "contest_id": "abc378", "problem_index": "F", "title": "F. Add One Edge 2", "difficulty": 1436, "url": "https://atcoder.jp/contests/abc378/tasks/abc378_f", "datetime": 1730548800}, {"id": "abc381_g", "contest_id": "abc381", "problem_index": "G", "title": "G. Fibonacci Product", "difficulty": 3313, "url": "https://atcoder.jp/contests/abc381/tasks/abc381_g", "datetime": 1732276800}, {"id": "abc405_f", "contest_id": "abc405", "problem_index": "F", "title": "F. Chord Crossing", "difficulty": 1588, "url": "https://atcoder.jp/contests/abc405/tasks/abc405_f", "datetime": 1746878400}, {"id": "abc417_g", "contest_id": "abc417", "problem_index": "G", "title": "G. Binary Cat", "difficulty": 2778, "url": "https://atcoder.jp/contests/abc417/tasks/abc417_g", "datetime": 1754136000}, {"id": "abc435_f", "contest_id": "abc435", "problem_index": "F", "title": "F. Cat exercise", "difficulty": 1385, "url": "https://atcoder.jp/contests/abc435/tasks/abc435_f", "datetime": 1765022400}, {"id": "abc438_e", "contest_id": "abc438", "problem_index": "E", "title": "E. Heavy Buckets", "difficulty": 1226, "url": "https://atcoder.jp/contests/abc438/tasks/abc438_e", "datetime": 1766836800}, {"id": "abc438_f", "contest_id": "abc438", "problem_index": "F", "title": "F. Sum of Mex", "difficulty": 1852, "url": "https://atcoder.jp/contests/abc438/tasks/abc438_f", "datetime": 1766836800}, {"id": "abc448_e", "contest_id": "abc448", "problem_index": "E", "title": "E. Simple Division", "difficulty": 1359, "url": "https://atcoder.jp/contests/abc448/tasks/abc448_e", "datetime": 1772884800}, {"id": "agc047_d", "contest_id": "agc047", "problem_index": "D", "title": "D. Twin Binary Trees", "difficulty": 2910, "url": "https://atcoder.jp/contests/agc047/tasks/agc047_d", "datetime": 1596974400}, {"id": "arc139_e", "contest_id": "arc139", "problem_index": "E", "title": "E. Wazir", "difficulty": 3222, "url": "https://atcoder.jp/contests/arc139/tasks/arc139_e", "datetime": 1650801600}, {"id": "arc140_f", "contest_id": "arc140", "problem_index": "F", "title": "F. ABS Permutation (Count ver.)", "difficulty": 3392, "url": "https://atcoder.jp/contests/arc140/tasks/arc140_f", "datetime": 1652616000}, {"id": "arc160_e", "contest_id": "arc160", "problem_index": "E", "title": "E. Make Biconnected", "difficulty": 3284, "url": "https://atcoder.jp/contests/arc160/tasks/arc160_e", "datetime": 1684065600}, {"id": "arc167_f", "contest_id": "arc167", "problem_index": "F", "title": "F. Tree Tree Tree", "difficulty": 3951, "url": "https://atcoder.jp/contests/arc167/tasks/arc167_f", "datetime": 1697371200}, {"id": "arc183_e", "contest_id": "arc183", "problem_index": "E", "title": "E. Ascendant Descendant", "difficulty": 3331, "url": "https://atcoder.jp/contests/arc183/tasks/arc183_e", "datetime": 1724587200}, {"id": "arc195_e", "contest_id": "arc195", "problem_index": "E", "title": "E. Random Tree Distance", "difficulty": 2734, "url": "https://atcoder.jp/contests/arc195/tasks/arc195_e", "datetime": 1742731200}, {"id": "arc209_c", "contest_id": "arc209", "problem_index": "C", "title": "C. Adjusting a Rectangle", "difficulty": 2869, "url": "https://atcoder.jp/contests/arc209/tasks/arc209_c", "datetime": 1762689600}, {"id": "arc218_d", "contest_id": "arc218", "problem_index": "D", "title": "D. I like Increasing", "difficulty": 2674, "url": "https://atcoder.jp/contests/arc218/tasks/arc218_d", "datetime": 1777809600}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

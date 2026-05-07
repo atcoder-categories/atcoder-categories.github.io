@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SCC / 2-SAT</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>SCC / 2-SAT</span></div>
+    <h1>SCC / 2-SAT</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc188_e", "contest_id": "abc188", "problem_index": "E", "title": "E. Peddler", "difficulty": 1170, "url": "https://atcoder.jp/contests/abc188/tasks/abc188_e", "datetime": 1610280000}, {"id": "abc210_f", "contest_id": "abc210", "problem_index": "F", "title": "F. Coprime Solitaire", "difficulty": 2632, "url": "https://atcoder.jp/contests/abc210/tasks/abc210_f", "datetime": 1626523200}, {"id": "abc245_f", "contest_id": "abc245", "problem_index": "F", "title": "F. Endless Walk", "difficulty": 1451, "url": "https://atcoder.jp/contests/abc245/tasks/abc245_f", "datetime": 1648296000}, {"id": "abc257_d", "contest_id": "abc257", "problem_index": "D", "title": "D. Jumping Takahashi 2", "difficulty": 1203, "url": "https://atcoder.jp/contests/abc257/tasks/abc257_d", "datetime": 1656158400}, {"id": "abc277_h", "contest_id": "abc277", "problem_index": "Ex", "title": "Ex. Constrained Sums", "difficulty": 2917, "url": "https://atcoder.jp/contests/abc277/tasks/abc277_h", "datetime": 1668254400}, {"id": "abc295_g", "contest_id": "abc295", "problem_index": "G", "title": "G. Minimum Reachable City ", "difficulty": 2091, "url": "https://atcoder.jp/contests/abc295/tasks/abc295_g", "datetime": 1679745600}, {"id": "abc357_e", "contest_id": "abc357", "problem_index": "E", "title": "E. Reachability in Functional Graph", "difficulty": 1295, "url": "https://atcoder.jp/contests/abc357/tasks/abc357_e", "datetime": 1717848000}, {"id": "abc374_g", "contest_id": "abc374", "problem_index": "G", "title": "G. Only One Product Name", "difficulty": 2608, "url": "https://atcoder.jp/contests/abc374/tasks/abc374_g", "datetime": 1728129600}, {"id": "arc161_e", "contest_id": "arc161", "problem_index": "E", "title": "E. Not Dyed by Majority (Cubic Graph)", "difficulty": 3136, "url": "https://atcoder.jp/contests/arc161/tasks/arc161_e", "datetime": 1685275200}, {"id": "arc161_f", "contest_id": "arc161", "problem_index": "F", "title": "F. Everywhere is Sparser than Whole (Judge)", "difficulty": 3106, "url": "https://atcoder.jp/contests/arc161/tasks/arc161_f", "datetime": 1685275200}, {"id": "arc163_d", "contest_id": "arc163", "problem_index": "D", "title": "D. Sum of SCC", "difficulty": 2581, "url": "https://atcoder.jp/contests/arc163/tasks/arc163_d", "datetime": 1688299200}, {"id": "arc165_d", "contest_id": "arc165", "problem_index": "D", "title": "D. Substring Comparison", "difficulty": 2589, "url": "https://atcoder.jp/contests/arc165/tasks/arc165_d", "datetime": 1694952000}, {"id": "arc186_a", "contest_id": "arc186", "problem_index": "A", "title": "A. Underclued", "difficulty": 2511, "url": "https://atcoder.jp/contests/arc186/tasks/arc186_a", "datetime": 1730030400}, {"id": "arc188_d", "contest_id": "arc188", "problem_index": "D", "title": "D. Mirror and Order", "difficulty": 3178, "url": "https://atcoder.jp/contests/arc188/tasks/arc188_d", "datetime": 1732363200}, {"id": "arc196_c", "contest_id": "arc196", "problem_index": "C", "title": "C. Strongly Connected", "difficulty": 2917, "url": "https://atcoder.jp/contests/arc196/tasks/arc196_c", "datetime": 1743940800}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

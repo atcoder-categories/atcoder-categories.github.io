@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fenwick Tree</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Fenwick Tree</span></div>
+    <h1>Fenwick Tree</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc185_f", "contest_id": "abc185", "problem_index": "F", "title": "F. Range Xor Query", "difficulty": 1053, "url": "https://atcoder.jp/contests/abc185/tasks/abc185_f", "datetime": 1607860800}, {"id": "abc186_f", "contest_id": "abc186", "problem_index": "F", "title": "F. Rook on Grid", "difficulty": 1833, "url": "https://atcoder.jp/contests/abc186/tasks/abc186_f", "datetime": 1608379200}, {"id": "abc190_f", "contest_id": "abc190", "problem_index": "F", "title": "F. Shift and Inversions", "difficulty": 1321, "url": "https://atcoder.jp/contests/abc190/tasks/abc190_f", "datetime": 1612008000}, {"id": "abc217_d", "contest_id": "abc217", "problem_index": "D", "title": "D. Cutting Woods", "difficulty": 802, "url": "https://atcoder.jp/contests/abc217/tasks/abc217_d", "datetime": 1630756800}, {"id": "abc218_g", "contest_id": "abc218", "problem_index": "G", "title": "G. Game on Tree 2", "difficulty": 2217, "url": "https://atcoder.jp/contests/abc218/tasks/abc218_g", "datetime": 1631361600}, {"id": "abc221_e", "contest_id": "abc221", "problem_index": "E", "title": "E. LEQ", "difficulty": 1515, "url": "https://atcoder.jp/contests/abc221/tasks/abc221_e", "datetime": 1633176000}, {"id": "abc222_d", "contest_id": "abc222", "problem_index": "D", "title": "D. Between Two Arrays", "difficulty": 865, "url": "https://atcoder.jp/contests/abc222/tasks/abc222_d", "datetime": 1633780800}, {"id": "abc228_d", "contest_id": "abc228", "problem_index": "D", "title": "D. Linear Probing", "difficulty": 1035, "url": "https://atcoder.jp/contests/abc228/tasks/abc228_d", "datetime": 1637409600}, {"id": "abc241_d", "contest_id": "abc241", "problem_index": "D", "title": "D. Sequence Query", "difficulty": 1177, "url": "https://atcoder.jp/contests/abc241/tasks/abc241_d", "datetime": 1645876800}, {"id": "abc248_h", "contest_id": "abc248", "problem_index": "Ex", "title": "Ex. Beautiful Subsequences", "difficulty": 2960, "url": "https://atcoder.jp/contests/abc248/tasks/abc248_h", "datetime": 1650110400}, {"id": "abc249_e", "contest_id": "abc249", "problem_index": "E", "title": "E. RLE", "difficulty": 1970, "url": "https://atcoder.jp/contests/abc249/tasks/abc249_e", "datetime": 1650715200}, {"id": "abc253_f", "contest_id": "abc253", "problem_index": "F", "title": "F. Operations on a Matrix", "difficulty": 1756, "url": "https://atcoder.jp/contests/abc253/tasks/abc253_f", "datetime": 1653739200}, {"id": "abc256_f", "contest_id": "abc256", "problem_index": "F", "title": "F. Cumulative Cumulative Cumulative Sum", "difficulty": 2067, "url": "https://atcoder.jp/contests/abc256/tasks/abc256_f", "datetime": 1655553600}, {"id": "abc261_f", "contest_id": "abc261", "problem_index": "F", "title": "F. Sorting Color Balls", "difficulty": 1587, "url": "https://atcoder.jp/contests/abc261/tasks/abc261_f", "datetime": 1658577600}, {"id": "abc266_h", "contest_id": "abc266", "problem_index": "Ex", "title": "Ex. Snuke Panic (2D)", "difficulty": 2865, "url": "https://atcoder.jp/contests/abc266/tasks/abc266_h", "datetime": 1661601600}, {"id": "abc276_f", "contest_id": "abc276", "problem_index": "F", "title": "F. Double Chance", "difficulty": 1562, "url": "https://atcoder.jp/contests/abc276/tasks/abc276_f", "datetime": 1667649600}, {"id": "abc287_g", "contest_id": "abc287", "problem_index": "G", "title": "G. Balance Update Query", "difficulty": 2180, "url": "https://atcoder.jp/contests/abc287/tasks/abc287_g", "datetime": 1674907200}, {"id": "abc294_g", "contest_id": "abc294", "problem_index": "G", "title": "G. Distance Queries on a Tree", "difficulty": 1702, "url": "https://atcoder.jp/contests/abc294/tasks/abc294_g", "datetime": 1679227200}, {"id": "abc306_f", "contest_id": "abc306", "problem_index": "F", "title": "F. Merge Sets", "difficulty": 1557, "url": "https://atcoder.jp/contests/abc306/tasks/abc306_f", "datetime": 1687003200}, {"id": "abc337_g", "contest_id": "abc337", "problem_index": "G", "title": "G. Tree Inversion", "difficulty": 2080, "url": "https://atcoder.jp/contests/abc337/tasks/abc337_g", "datetime": 1705752000}, {"id": "abc351_f", "contest_id": "abc351", "problem_index": "F", "title": "F. Double Sum", "difficulty": 1253, "url": "https://atcoder.jp/contests/abc351/tasks/abc351_f", "datetime": 1714219200}, {"id": "abc353_g", "contest_id": "abc353", "problem_index": "G", "title": "G. Merchant Takahashi", "difficulty": 1765, "url": "https://atcoder.jp/contests/abc353/tasks/abc353_g", "datetime": 1715428800}, {"id": "abc370_g", "contest_id": "abc370", "problem_index": "G", "title": "G. Divisible by 3", "difficulty": 3428, "url": "https://atcoder.jp/contests/abc370/tasks/abc370_g", "datetime": 1725710400}, {"id": "abc378_e", "contest_id": "abc378", "problem_index": "E", "title": "E. Mod Sigma Problem", "difficulty": 1406, "url": "https://atcoder.jp/contests/abc378/tasks/abc378_e", "datetime": 1730548800}, {"id": "abc379_f", "contest_id": "abc379", "problem_index": "F", "title": "F. Buildings 2", "difficulty": 1659, "url": "https://atcoder.jp/contests/abc379/tasks/abc379_f", "datetime": 1731153600}, {"id": "abc384_g", "contest_id": "abc384", "problem_index": "G", "title": "G. Abs Sum", "difficulty": 2343, "url": "https://atcoder.jp/contests/abc384/tasks/abc384_g", "datetime": 1734177600}, {"id": "abc392_f", "contest_id": "abc392", "problem_index": "F", "title": "F. Insert", "difficulty": 1395, "url": "https://atcoder.jp/contests/abc392/tasks/abc392_f", "datetime": 1739016000}, {"id": "abc396_f", "contest_id": "abc396", "problem_index": "F", "title": "F. Rotated Inversions", "difficulty": 1479, "url": "https://atcoder.jp/contests/abc396/tasks/abc396_f", "datetime": 1741435200}, {"id": "abc405_g", "contest_id": "abc405", "problem_index": "G", "title": "G. Range Shuffle Query", "difficulty": 2354, "url": "https://atcoder.jp/contests/abc405/tasks/abc405_g", "datetime": 1746878400}, {"id": "abc406_f", "contest_id": "abc406", "problem_index": "F", "title": "F. Compare Tree Weights", "difficulty": 1470, "url": "https://atcoder.jp/contests/abc406/tasks/abc406_f", "datetime": 1747483200}, {"id": "abc406_g", "contest_id": "abc406", "problem_index": "G", "title": "G. Travelling Salesman Problem", "difficulty": 3197, "url": "https://atcoder.jp/contests/abc406/tasks/abc406_g", "datetime": 1747483200}, {"id": "abc431_g", "contest_id": "abc431", "problem_index": "G", "title": "G. One Time Swap 2", "difficulty": 2490, "url": "https://atcoder.jp/contests/abc431/tasks/abc431_g", "datetime": 1762603200}, {"id": "abc432_e", "contest_id": "abc432", "problem_index": "E", "title": "E. Clamp", "difficulty": 1133, "url": "https://atcoder.jp/contests/abc432/tasks/abc432_e", "datetime": 1763208000}, {"id": "abc435_a", "contest_id": "abc435", "problem_index": "A", "title": "A. Triangular Number", "difficulty": 0, "url": "https://atcoder.jp/contests/abc435/tasks/abc435_a", "datetime": 1765022400}, {"id": "abc436_f", "contest_id": "abc436", "problem_index": "F", "title": "F. Starry Landscape Photo", "difficulty": 1336, "url": "https://atcoder.jp/contests/abc436/tasks/abc436_f", "datetime": 1765627200}, {"id": "abc438_g", "contest_id": "abc438", "problem_index": "G", "title": "G. Sum of Min", "difficulty": 2455, "url": "https://atcoder.jp/contests/abc438/tasks/abc438_g", "datetime": 1766836800}, {"id": "abc439_f", "contest_id": "abc439", "problem_index": "F", "title": "F. Beautiful Kadomatsu", "difficulty": 1488, "url": "https://atcoder.jp/contests/abc439/tasks/abc439_f", "datetime": 1767441600}, {"id": "abc449_e", "contest_id": "abc449", "problem_index": "E", "title": "E. A += v", "difficulty": 1556, "url": "https://atcoder.jp/contests/abc449/tasks/abc449_e", "datetime": 1773489600}, {"id": "arc108_e", "contest_id": "arc108", "problem_index": "E", "title": "E. Random IS", "difficulty": 3101, "url": "https://atcoder.jp/contests/arc108/tasks/arc108_e", "datetime": 1605960000}, {"id": "arc125_d", "contest_id": "arc125", "problem_index": "D", "title": "D. Unique Subsequence", "difficulty": 2187, "url": "https://atcoder.jp/contests/arc125/tasks/arc125_d", "datetime": 1629633600}, {"id": "arc126_e", "contest_id": "arc126", "problem_index": "E", "title": "E. Infinite Operations", "difficulty": 2766, "url": "https://atcoder.jp/contests/arc126/tasks/arc126_e", "datetime": 1632056400}, {"id": "arc181_d", "contest_id": "arc181", "problem_index": "D", "title": "D. Prefix Bubble Sort", "difficulty": 2227, "url": "https://atcoder.jp/contests/arc181/tasks/arc181_d", "datetime": 1722772800}, {"id": "arc194_b", "contest_id": "arc194", "problem_index": "B", "title": "B. Minimum Cost Sort", "difficulty": 1048, "url": "https://atcoder.jp/contests/arc194/tasks/arc194_b", "datetime": 1741521600}, {"id": "arc197_c", "contest_id": "arc197", "problem_index": "C", "title": "C. Removal of Multiples", "difficulty": 1505, "url": "https://atcoder.jp/contests/arc197/tasks/arc197_c", "datetime": 1746360000}, {"id": "arc210_b", "contest_id": "arc210", "problem_index": "B", "title": "B. Remove Median Operations", "difficulty": 1506, "url": "https://atcoder.jp/contests/arc210/tasks/arc210_b", "datetime": 1763294400}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

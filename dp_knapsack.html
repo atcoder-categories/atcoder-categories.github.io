@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Knapsack</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Knapsack</span></div>
+    <h1>Knapsack</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc221_g", "contest_id": "abc221", "problem_index": "G", "title": "G. Jumping sequence", "difficulty": 2914, "url": "https://atcoder.jp/contests/abc221/tasks/abc221_g", "datetime": 1633176000}, {"id": "abc269_g", "contest_id": "abc269", "problem_index": "G", "title": "G. Reversible Cards 2", "difficulty": 2440, "url": "https://atcoder.jp/contests/abc269/tasks/abc269_g", "datetime": 1663416000}, {"id": "abc275_g", "contest_id": "abc275", "problem_index": "G", "title": "G. Infinite Knapsack", "difficulty": 2522, "url": "https://atcoder.jp/contests/abc275/tasks/abc275_g", "datetime": 1667044800}, {"id": "abc286_d", "contest_id": "abc286", "problem_index": "D", "title": "D. Money in Hand", "difficulty": 607, "url": "https://atcoder.jp/contests/abc286/tasks/abc286_d", "datetime": 1674302400}, {"id": "abc310_h", "contest_id": "abc310", "problem_index": "Ex", "title": "Ex. Negative Cost", "difficulty": 3343, "url": "https://atcoder.jp/contests/abc310/tasks/abc310_h", "datetime": 1689422400}, {"id": "abc317_d", "contest_id": "abc317", "problem_index": "D", "title": "D. President", "difficulty": 929, "url": "https://atcoder.jp/contests/abc317/tasks/abc317_d", "datetime": 1693051200}, {"id": "abc341_f", "contest_id": "abc341", "problem_index": "F", "title": "F. Breakdown", "difficulty": 1604, "url": "https://atcoder.jp/contests/abc341/tasks/abc341_f", "datetime": 1708171200}, {"id": "abc373_f", "contest_id": "abc373", "problem_index": "F", "title": "F. Knapsack with Diminishing Values", "difficulty": 2018, "url": "https://atcoder.jp/contests/abc373/tasks/abc373_f", "datetime": 1727524800}, {"id": "abc415_g", "contest_id": "abc415", "problem_index": "G", "title": "G. Get Many Cola", "difficulty": 2180, "url": "https://atcoder.jp/contests/abc415/tasks/abc415_g", "datetime": 1752926400}, {"id": "abc426_g", "contest_id": "abc426", "problem_index": "G", "title": "G. Range Knapsack Query", "difficulty": 2119, "url": "https://atcoder.jp/contests/abc426/tasks/abc426_g", "datetime": 1759579200}, {"id": "abc431_d", "contest_id": "abc431", "problem_index": "D", "title": "D. Robot Customize", "difficulty": 693, "url": "https://atcoder.jp/contests/abc431/tasks/abc431_d", "datetime": 1762603200}, {"id": "abc441_f", "contest_id": "abc441", "problem_index": "F", "title": "F. Must Buy", "difficulty": 1455, "url": "https://atcoder.jp/contests/abc441/tasks/abc441_f", "datetime": 1768651200}, {"id": "abc442_g", "contest_id": "abc442", "problem_index": "G", "title": "G. Lightweight Knapsack", "difficulty": 2347, "url": "https://atcoder.jp/contests/abc442/tasks/abc442_g", "datetime": 1769256000}, {"id": "arc178_c", "contest_id": "arc178", "problem_index": "C", "title": "C. Sum of Abs 2", "difficulty": 1990, "url": "https://atcoder.jp/contests/arc178/tasks/arc178_c", "datetime": 1716120000}, {"id": "arc201_b", "contest_id": "arc201", "problem_index": "B", "title": "B. Binary Knapsack", "difficulty": 1808, "url": "https://atcoder.jp/contests/arc201/tasks/arc201_b", "datetime": 1750593600}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

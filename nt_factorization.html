@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Factorization Techniques</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Factorization Techniques</span></div>
+    <h1>Factorization Techniques</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc177_e", "contest_id": "abc177", "problem_index": "E", "title": "E. Coprime", "difficulty": 1057, "url": "https://atcoder.jp/contests/abc177/tasks/abc177_e", "datetime": 1598702400}, {"id": "abc215_d", "contest_id": "abc215", "problem_index": "D", "title": "D. Coprime 2", "difficulty": 736, "url": "https://atcoder.jp/contests/abc215/tasks/abc215_d", "datetime": 1629547200}, {"id": "abc227_g", "contest_id": "abc227", "problem_index": "G", "title": "G. Divisors of Binomial Coefficient", "difficulty": 2207, "url": "https://atcoder.jp/contests/abc227/tasks/abc227_g", "datetime": 1636804800}, {"id": "abc238_g", "contest_id": "abc238", "problem_index": "G", "title": "G. Cubic?", "difficulty": 2254, "url": "https://atcoder.jp/contests/abc238/tasks/abc238_g", "datetime": 1644062400}, {"id": "abc248_g", "contest_id": "abc248", "problem_index": "G", "title": "G. GCD cost on the tree", "difficulty": 2514, "url": "https://atcoder.jp/contests/abc248/tasks/abc248_g", "datetime": 1650110400}, {"id": "abc250_d", "contest_id": "abc250", "problem_index": "D", "title": "D. 250-like Number", "difficulty": 797, "url": "https://atcoder.jp/contests/abc250/tasks/abc250_d", "datetime": 1652011200}, {"id": "abc259_e", "contest_id": "abc259", "problem_index": "E", "title": "E. LCM on Whiteboard", "difficulty": 1370, "url": "https://atcoder.jp/contests/abc259/tasks/abc259_e", "datetime": 1657368000}, {"id": "abc272_h", "contest_id": "abc272", "problem_index": "Ex", "title": "Ex. Flipping Coins 2", "difficulty": 3740, "url": "https://atcoder.jp/contests/abc272/tasks/abc272_h", "datetime": 1665230400}, {"id": "abc276_d", "contest_id": "abc276", "problem_index": "D", "title": "D. Divide by 2 or 3", "difficulty": 645, "url": "https://atcoder.jp/contests/abc276/tasks/abc276_d", "datetime": 1667649600}, {"id": "abc280_d", "contest_id": "abc280", "problem_index": "D", "title": "D. Factorial and Multiple", "difficulty": 880, "url": "https://atcoder.jp/contests/abc280/tasks/abc280_d", "datetime": 1670068800}, {"id": "abc284_d", "contest_id": "abc284", "problem_index": "D", "title": "D. Happy New Year 2023 ", "difficulty": 658, "url": "https://atcoder.jp/contests/abc284/tasks/abc284_d", "datetime": 1673092800}, {"id": "abc293_f", "contest_id": "abc293", "problem_index": "F", "title": "F. Zero or One", "difficulty": 2038, "url": "https://atcoder.jp/contests/abc293/tasks/abc293_f", "datetime": 1678536000}, {"id": "abc324_b", "contest_id": "abc324", "problem_index": "B", "title": "B. 3-smooth Numbers", "difficulty": 0, "url": "https://atcoder.jp/contests/abc324/tasks/abc324_b", "datetime": 1697284800}, {"id": "abc335_g", "contest_id": "abc335", "problem_index": "G", "title": "G. Discrete Logarithm Problems", "difficulty": 2614, "url": "https://atcoder.jp/contests/abc335/tasks/abc335_g", "datetime": 1704542400}, {"id": "abc349_f", "contest_id": "abc349", "problem_index": "F", "title": "F. Subsequence LCM", "difficulty": 2169, "url": "https://atcoder.jp/contests/abc349/tasks/abc349_f", "datetime": 1713009600}, {"id": "abc361_f", "contest_id": "abc361", "problem_index": "F", "title": "F. x = a^b", "difficulty": 1606, "url": "https://atcoder.jp/contests/abc361/tasks/abc361_f", "datetime": 1720267200}, {"id": "abc368_f", "contest_id": "abc368", "problem_index": "F", "title": "F. Dividing Game", "difficulty": 1180, "url": "https://atcoder.jp/contests/abc368/tasks/abc368_f", "datetime": 1724500800}, {"id": "abc412_e", "contest_id": "abc412", "problem_index": "E", "title": "E. LCM Sequence", "difficulty": 1496, "url": "https://atcoder.jp/contests/abc412/tasks/abc412_e", "datetime": 1751112000}, {"id": "abc444_g", "contest_id": "abc444", "problem_index": "G", "title": "G. Kyoen", "difficulty": 3117, "url": "https://atcoder.jp/contests/abc444/tasks/abc444_g", "datetime": 1770465600}, {"id": "abc445_e", "contest_id": "abc445", "problem_index": "E", "title": "E. Many LCMs", "difficulty": 1337, "url": "https://atcoder.jp/contests/abc445/tasks/abc445_e", "datetime": 1771070400}, {"id": "agc063_d", "contest_id": "agc063", "problem_index": "D", "title": "D. Many CRT", "difficulty": 3609, "url": "https://atcoder.jp/contests/agc063/tasks/agc063_d", "datetime": 1690718400}, {"id": "arc135_d", "contest_id": "arc135", "problem_index": "D", "title": "D. Add to Square", "difficulty": 2750, "url": "https://atcoder.jp/contests/arc135/tasks/arc135_d", "datetime": 1644753600}, {"id": "arc149_a", "contest_id": "arc149", "problem_index": "A", "title": "A. Repdigit Number", "difficulty": 878, "url": "https://atcoder.jp/contests/arc149/tasks/arc149_a", "datetime": 1664712000}, {"id": "arc165_a", "contest_id": "arc165", "problem_index": "A", "title": "A. Sum equals LCM", "difficulty": 275, "url": "https://atcoder.jp/contests/arc165/tasks/arc165_a", "datetime": 1694952000}, {"id": "arc182_f", "contest_id": "arc182", "problem_index": "F", "title": "F. Graph of Mod of Linear", "difficulty": 3837, "url": "https://atcoder.jp/contests/arc182/tasks/arc182_f", "datetime": 1723377600}, {"id": "arc192_d", "contest_id": "arc192", "problem_index": "D", "title": "D. Fraction Line", "difficulty": 2722, "url": "https://atcoder.jp/contests/arc192/tasks/arc192_d", "datetime": 1739102400}, {"id": "arc216_d", "contest_id": "arc216", "problem_index": "D", "title": "D. GCD of Product of Arithmetic Progression", "difficulty": 3079, "url": "https://atcoder.jp/contests/arc216/tasks/arc216_d", "datetime": 1774180800}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Floyd-Warshall Algorithm</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Floyd-Warshall Algorithm</span></div>
+    <h1>Floyd-Warshall Algorithm</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc208_d", "contest_id": "abc208", "problem_index": "D", "title": "D. Shortest Path Queries 2", "difficulty": 1190, "url": "https://atcoder.jp/contests/abc208/tasks/abc208_d", "datetime": 1625400000}, {"id": "abc243_e", "contest_id": "abc243", "problem_index": "E", "title": "E. Edge Deletion", "difficulty": 1637, "url": "https://atcoder.jp/contests/abc243/tasks/abc243_e", "datetime": 1647086400}, {"id": "abc257_d", "contest_id": "abc257", "problem_index": "D", "title": "D. Jumping Takahashi 2", "difficulty": 1203, "url": "https://atcoder.jp/contests/abc257/tasks/abc257_d", "datetime": 1656158400}, {"id": "abc286_e", "contest_id": "abc286", "problem_index": "E", "title": "E. Souvenir", "difficulty": 1128, "url": "https://atcoder.jp/contests/abc286/tasks/abc286_e", "datetime": 1674302400}, {"id": "abc287_h", "contest_id": "abc287", "problem_index": "Ex", "title": "Ex. Directed Graph and Query", "difficulty": 2639, "url": "https://atcoder.jp/contests/abc287/tasks/abc287_h", "datetime": 1674907200}, {"id": "abc338_f", "contest_id": "abc338", "problem_index": "F", "title": "F. Negative Traveling Salesman", "difficulty": 1835, "url": "https://atcoder.jp/contests/abc338/tasks/abc338_f", "datetime": 1706356800}, {"id": "abc369_e", "contest_id": "abc369", "problem_index": "E", "title": "E. Sightseeing Tour ", "difficulty": 1301, "url": "https://atcoder.jp/contests/abc369/tasks/abc369_e", "datetime": 1725105600}, {"id": "abc375_f", "contest_id": "abc375", "problem_index": "F", "title": "F. Road Blocked", "difficulty": 1546, "url": "https://atcoder.jp/contests/abc375/tasks/abc375_f", "datetime": 1728734400}, {"id": "abc416_e", "contest_id": "abc416", "problem_index": "E", "title": "E. Development", "difficulty": 1428, "url": "https://atcoder.jp/contests/abc416/tasks/abc416_e", "datetime": 1753531200}, {"id": "arc109_a", "contest_id": "arc109", "problem_index": "A", "title": "A. Hands", "difficulty": 0, "url": "https://atcoder.jp/contests/arc109/tasks/arc109_a", "datetime": 1606564800}, {"id": "arc159_a", "contest_id": "arc159", "problem_index": "A", "title": "A. Copy and Paste Graph", "difficulty": 698, "url": "https://atcoder.jp/contests/arc159/tasks/arc159_a", "datetime": 1680955200}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pigeonhole Principle</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Pigeonhole Principle</span></div>
+    <h1>Pigeonhole Principle</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc178_f", "contest_id": "abc178", "problem_index": "F", "title": "F. Contrast", "difficulty": 1877, "url": "https://atcoder.jp/contests/abc178/tasks/abc178_f", "datetime": 1599998400}, {"id": "abc200_d", "contest_id": "abc200", "problem_index": "D", "title": "D. Happy Birthday! 2", "difficulty": 1217, "url": "https://atcoder.jp/contests/abc200/tasks/abc200_d", "datetime": 1620475200}, {"id": "abc258_e", "contest_id": "abc258", "problem_index": "E", "title": "E. Packing Potatoes", "difficulty": 1545, "url": "https://atcoder.jp/contests/abc258/tasks/abc258_e", "datetime": 1656763200}, {"id": "abc260_f", "contest_id": "abc260", "problem_index": "F", "title": "F. Find 4-cycle", "difficulty": 1995, "url": "https://atcoder.jp/contests/abc260/tasks/abc260_f", "datetime": 1658059200}, {"id": "abc268_d", "contest_id": "abc268", "problem_index": "D", "title": "D. Unique Username", "difficulty": 1309, "url": "https://atcoder.jp/contests/abc268/tasks/abc268_d", "datetime": 1662811200}, {"id": "abc310_h", "contest_id": "abc310", "problem_index": "Ex", "title": "Ex. Negative Cost", "difficulty": 3343, "url": "https://atcoder.jp/contests/abc310/tasks/abc310_h", "datetime": 1689422400}, {"id": "abc347_f", "contest_id": "abc347", "problem_index": "F", "title": "F. Non-overlapping Squares", "difficulty": 2179, "url": "https://atcoder.jp/contests/abc347/tasks/abc347_f", "datetime": 1711800000}, {"id": "abc352_g", "contest_id": "abc352", "problem_index": "G", "title": "G. Socks 3", "difficulty": 2413, "url": "https://atcoder.jp/contests/abc352/tasks/abc352_g", "datetime": 1714824000}, {"id": "abc391_c", "contest_id": "abc391", "problem_index": "C", "title": "C. Pigeonhole Query", "difficulty": 141, "url": "https://atcoder.jp/contests/abc391/tasks/abc391_c", "datetime": 1738411200}, {"id": "abc415_g", "contest_id": "abc415", "problem_index": "G", "title": "G. Get Many Cola", "difficulty": 2180, "url": "https://atcoder.jp/contests/abc415/tasks/abc415_g", "datetime": 1752926400}, {"id": "abc418_g", "contest_id": "abc418", "problem_index": "G", "title": "G. Binary Operation", "difficulty": 3038, "url": "https://atcoder.jp/contests/abc418/tasks/abc418_g", "datetime": 1754740800}, {"id": "abc429_g", "contest_id": "abc429", "problem_index": "G", "title": "G. Sum of Pow of Mod of Linear", "difficulty": 3295, "url": "https://atcoder.jp/contests/abc429/tasks/abc429_g", "datetime": 1761393600}, {"id": "agc074_a", "contest_id": "agc074", "problem_index": "A", "title": "A. Communicate Topological Order", "difficulty": 2106, "url": "https://atcoder.jp/contests/agc074/tasks/agc074_a", "datetime": 1761480000}, {"id": "arc170_b", "contest_id": "arc170", "problem_index": "B", "title": "B. Arithmetic Progression Subsequence", "difficulty": 1180, "url": "https://atcoder.jp/contests/arc170/tasks/arc170_b", "datetime": 1705838400}, {"id": "arc171_c", "contest_id": "arc171", "problem_index": "C", "title": "C. Swap on Tree", "difficulty": 2244, "url": "https://atcoder.jp/contests/arc171/tasks/arc171_c", "datetime": 1707048000}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Euler's Totient</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Euler's Totient</span></div>
+    <h1>Euler's Totient</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc239_h", "contest_id": "abc239", "problem_index": "Ex", "title": "Ex. Dice Product 2", "difficulty": 2686, "url": "https://atcoder.jp/contests/abc239/tasks/abc239_h", "datetime": 1645272000}, {"id": "abc335_g", "contest_id": "abc335", "problem_index": "G", "title": "G. Discrete Logarithm Problems", "difficulty": 2614, "url": "https://atcoder.jp/contests/abc335/tasks/abc335_g", "datetime": 1704542400}, {"id": "abc428_g", "contest_id": "abc428", "problem_index": "G", "title": "G. Necklace", "difficulty": 2472, "url": "https://atcoder.jp/contests/abc428/tasks/abc428_g", "datetime": 1760790600}, {"id": "arc182_f", "contest_id": "arc182", "problem_index": "F", "title": "F. Graph of Mod of Linear", "difficulty": 3837, "url": "https://atcoder.jp/contests/arc182/tasks/arc182_f", "datetime": 1723377600}, {"id": "arc185_e", "contest_id": "arc185", "problem_index": "E", "title": "E. Adjacent GCD", "difficulty": 2185, "url": "https://atcoder.jp/contests/arc185/tasks/arc185_e", "datetime": 1728820800}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

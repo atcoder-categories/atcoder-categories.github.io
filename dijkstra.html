@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dijkstra's Algorithm</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Dijkstra's Algorithm</span></div>
+    <h1>Dijkstra's Algorithm</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc175_f", "contest_id": "abc175", "problem_index": "F", "title": "F. Making Palindrome", "difficulty": 2512, "url": "https://atcoder.jp/contests/abc175/tasks/abc175_f", "datetime": 1597492800}, {"id": "abc191_e", "contest_id": "abc191", "problem_index": "E", "title": "E. Come Back Quickly", "difficulty": 1323, "url": "https://atcoder.jp/contests/abc191/tasks/abc191_e", "datetime": 1612612800}, {"id": "abc192_e", "contest_id": "abc192", "problem_index": "E", "title": "E. Train", "difficulty": 1135, "url": "https://atcoder.jp/contests/abc192/tasks/abc192_e", "datetime": 1613822400}, {"id": "abc204_e", "contest_id": "abc204", "problem_index": "E", "title": "E. Rush Hour 2", "difficulty": 1710, "url": "https://atcoder.jp/contests/abc204/tasks/abc204_e", "datetime": 1622980800}, {"id": "abc214_c", "contest_id": "abc214", "problem_index": "C", "title": "C. Distribution", "difficulty": 309, "url": "https://atcoder.jp/contests/abc214/tasks/abc214_c", "datetime": 1628942400}, {"id": "abc216_g", "contest_id": "abc216", "problem_index": "G", "title": "G. 01Sequence", "difficulty": 1963, "url": "https://atcoder.jp/contests/abc216/tasks/abc216_g", "datetime": 1630238400}, {"id": "abc222_f", "contest_id": "abc222", "problem_index": "F", "title": "F. Expensive Expense", "difficulty": 1934, "url": "https://atcoder.jp/contests/abc222/tasks/abc222_f", "datetime": 1633780800}, {"id": "abc232_g", "contest_id": "abc232", "problem_index": "G", "title": "G. Modulo Shortest Path", "difficulty": 2550, "url": "https://atcoder.jp/contests/abc232/tasks/abc232_g", "datetime": 1639915200}, {"id": "abc237_c", "contest_id": "abc237", "problem_index": "C", "title": "C. kasaka", "difficulty": 239, "url": "https://atcoder.jp/contests/abc237/tasks/abc237_c", "datetime": 1643544000}, {"id": "abc237_e", "contest_id": "abc237", "problem_index": "E", "title": "E. Skiing", "difficulty": 1208, "url": "https://atcoder.jp/contests/abc237/tasks/abc237_e", "datetime": 1643544000}, {"id": "abc245_g", "contest_id": "abc245", "problem_index": "G", "title": "G. Foreign Friends", "difficulty": 2270, "url": "https://atcoder.jp/contests/abc245/tasks/abc245_g", "datetime": 1648296000}, {"id": "abc246_e", "contest_id": "abc246", "problem_index": "E", "title": "E. Bishop 2", "difficulty": 1476, "url": "https://atcoder.jp/contests/abc246/tasks/abc246_e", "datetime": 1648900800}, {"id": "abc250_h", "contest_id": "abc250", "problem_index": "Ex", "title": "Ex. Trespassing Takahashi", "difficulty": 2773, "url": "https://atcoder.jp/contests/abc250/tasks/abc250_h", "datetime": 1652011200}, {"id": "abc252_e", "contest_id": "abc252", "problem_index": "E", "title": "E. Road Reduction", "difficulty": 1294, "url": "https://atcoder.jp/contests/abc252/tasks/abc252_e", "datetime": 1653134400}, {"id": "abc257_d", "contest_id": "abc257", "problem_index": "D", "title": "D. Jumping Takahashi 2", "difficulty": 1203, "url": "https://atcoder.jp/contests/abc257/tasks/abc257_d", "datetime": 1656158400}, {"id": "abc261_g", "contest_id": "abc261", "problem_index": "G", "title": "G. Replace", "difficulty": 2803, "url": "https://atcoder.jp/contests/abc261/tasks/abc261_g", "datetime": 1658577600}, {"id": "abc267_e", "contest_id": "abc267", "problem_index": "E", "title": "E. Erasing Vertices 2", "difficulty": 1313, "url": "https://atcoder.jp/contests/abc267/tasks/abc267_e", "datetime": 1662206400}, {"id": "abc277_c", "contest_id": "abc277", "problem_index": "C", "title": "C. Ladder Takahashi", "difficulty": 540, "url": "https://atcoder.jp/contests/abc277/tasks/abc277_c", "datetime": 1668254400}, {"id": "abc277_e", "contest_id": "abc277", "problem_index": "E", "title": "E. Crystal Switches", "difficulty": 1183, "url": "https://atcoder.jp/contests/abc277/tasks/abc277_e", "datetime": 1668254400}, {"id": "abc286_e", "contest_id": "abc286", "problem_index": "E", "title": "E. Souvenir", "difficulty": 1128, "url": "https://atcoder.jp/contests/abc286/tasks/abc286_e", "datetime": 1674302400}, {"id": "abc297_e", "contest_id": "abc297", "problem_index": "E", "title": "E. Kth Takoyaki Set", "difficulty": 1176, "url": "https://atcoder.jp/contests/abc297/tasks/abc297_e", "datetime": 1681041600}, {"id": "abc305_e", "contest_id": "abc305", "problem_index": "E", "title": "E. Art Gallery on Graph", "difficulty": 1158, "url": "https://atcoder.jp/contests/abc305/tasks/abc305_e", "datetime": 1686398400}, {"id": "abc307_f", "contest_id": "abc307", "problem_index": "F", "title": "F. Virus 2", "difficulty": 2139, "url": "https://atcoder.jp/contests/abc307/tasks/abc307_f", "datetime": 1687608000}, {"id": "abc335_e", "contest_id": "abc335", "problem_index": "E", "title": "E. Non-Decreasing Colorful Path", "difficulty": 1540, "url": "https://atcoder.jp/contests/abc335/tasks/abc335_e", "datetime": 1704542400}, {"id": "abc340_d", "contest_id": "abc340", "problem_index": "D", "title": "D. Super Takahashi Bros.", "difficulty": 784, "url": "https://atcoder.jp/contests/abc340/tasks/abc340_d", "datetime": 1707566400}, {"id": "abc342_e", "contest_id": "abc342", "problem_index": "E", "title": "E. Last Train", "difficulty": 1476, "url": "https://atcoder.jp/contests/abc342/tasks/abc342_e", "datetime": 1708776000}, {"id": "abc362_d", "contest_id": "abc362", "problem_index": "D", "title": "D. Shortest Path 3", "difficulty": 634, "url": "https://atcoder.jp/contests/abc362/tasks/abc362_d", "datetime": 1720872000}, {"id": "abc364_g", "contest_id": "abc364", "problem_index": "G", "title": "G. Last Major City", "difficulty": 2455, "url": "https://atcoder.jp/contests/abc364/tasks/abc364_g", "datetime": 1722081600}, {"id": "abc375_g", "contest_id": "abc375", "problem_index": "G", "title": "G. Road Blocked 2", "difficulty": 2014, "url": "https://atcoder.jp/contests/abc375/tasks/abc375_g", "datetime": 1728734400}, {"id": "abc393_g", "contest_id": "abc393", "problem_index": "G", "title": "G. Unevenness", "difficulty": 3731, "url": "https://atcoder.jp/contests/abc393/tasks/abc393_g", "datetime": 1739620800}, {"id": "abc395_e", "contest_id": "abc395", "problem_index": "E", "title": "E. Flip Edge", "difficulty": 978, "url": "https://atcoder.jp/contests/abc395/tasks/abc395_e", "datetime": 1740830400}, {"id": "abc395_g", "contest_id": "abc395", "problem_index": "G", "title": "G. Minimum Steiner Tree 2", "difficulty": 2561, "url": "https://atcoder.jp/contests/abc395/tasks/abc395_g", "datetime": 1740830400}, {"id": "abc400_d", "contest_id": "abc400", "problem_index": "D", "title": "D. Takahashi the Wall Breaker", "difficulty": 1026, "url": "https://atcoder.jp/contests/abc400/tasks/abc400_d", "datetime": 1743854400}, {"id": "abc414_g", "contest_id": "abc414", "problem_index": "G", "title": "G. AtCoder Express 4", "difficulty": 3020, "url": "https://atcoder.jp/contests/abc414/tasks/abc414_g", "datetime": 1752321600}, {"id": "agc056_c", "contest_id": "agc056", "problem_index": "C", "title": "C. 01 Balanced", "difficulty": 2481, "url": "https://atcoder.jp/contests/agc056/tasks/agc056_c", "datetime": 1638619200}, {"id": "agc061_e", "contest_id": "agc061", "problem_index": "E", "title": "E. Increment or XOR", "difficulty": 3901, "url": "https://atcoder.jp/contests/agc061/tasks/agc061_e", "datetime": 1676203200}, {"id": "arc109_a", "contest_id": "arc109", "problem_index": "A", "title": "A. Hands", "difficulty": 0, "url": "https://atcoder.jp/contests/arc109/tasks/arc109_a", "datetime": 1606564800}, {"id": "arc150_c", "contest_id": "arc150", "problem_index": "C", "title": "C. Path and Subsequence", "difficulty": 1802, "url": "https://atcoder.jp/contests/arc150/tasks/arc150_c", "datetime": 1665316800}, {"id": "arc177_c", "contest_id": "arc177", "problem_index": "C", "title": "C. Routing", "difficulty": 1055, "url": "https://atcoder.jp/contests/arc177/tasks/arc177_c", "datetime": 1715515200}, {"id": "arc212_b", "contest_id": "arc212", "problem_index": "B", "title": "B. Stones on Grid", "difficulty": 962, "url": "https://atcoder.jp/contests/arc212/tasks/arc212_b", "datetime": 1768132800}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Euler Path / Cycle</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Euler Path / Cycle</span></div>
+    <h1>Euler Path / Cycle</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc213_d", "contest_id": "abc213", "problem_index": "D", "title": "D. Takahashi Tour", "difficulty": 710, "url": "https://atcoder.jp/contests/abc213/tasks/abc213_d", "datetime": 1628424000}, {"id": "abc227_h", "contest_id": "abc227", "problem_index": "H", "title": "H. Eat Them All", "difficulty": 3229, "url": "https://atcoder.jp/contests/abc227/tasks/abc227_h", "datetime": 1636804800}, {"id": "abc267_g", "contest_id": "abc267", "problem_index": "G", "title": "G. Increasing K Times", "difficulty": 2561, "url": "https://atcoder.jp/contests/abc267/tasks/abc267_g", "datetime": 1662206400}, {"id": "abc286_g", "contest_id": "abc286", "problem_index": "G", "title": "G. Unique Walk", "difficulty": 2135, "url": "https://atcoder.jp/contests/abc286/tasks/abc286_g", "datetime": 1674302400}, {"id": "abc294_g", "contest_id": "abc294", "problem_index": "G", "title": "G. Distance Queries on a Tree", "difficulty": 1702, "url": "https://atcoder.jp/contests/abc294/tasks/abc294_g", "datetime": 1679227200}, {"id": "abc336_g", "contest_id": "abc336", "problem_index": "G", "title": "G. 16 Integers", "difficulty": 3138, "url": "https://atcoder.jp/contests/abc336/tasks/abc336_g", "datetime": 1705233600}, {"id": "abc337_g", "contest_id": "abc337", "problem_index": "G", "title": "G. Tree Inversion", "difficulty": 2080, "url": "https://atcoder.jp/contests/abc337/tasks/abc337_g", "datetime": 1705752000}, {"id": "abc369_g", "contest_id": "abc369", "problem_index": "G", "title": "G. As far as possible", "difficulty": 2055, "url": "https://atcoder.jp/contests/abc369/tasks/abc369_g", "datetime": 1725105600}, {"id": "abc448_d", "contest_id": "abc448", "problem_index": "D", "title": "D. Integer-duplicated Path", "difficulty": 638, "url": "https://atcoder.jp/contests/abc448/tasks/abc448_d", "datetime": 1772884800}, {"id": "arc160_e", "contest_id": "arc160", "problem_index": "E", "title": "E. Make Biconnected", "difficulty": 3284, "url": "https://atcoder.jp/contests/arc160/tasks/arc160_e", "datetime": 1684065600}, {"id": "arc173_d", "contest_id": "arc173", "problem_index": "D", "title": "D. Bracket Walk", "difficulty": 2598, "url": "https://atcoder.jp/contests/arc173/tasks/arc173_d", "datetime": 1710072000}, {"id": "arc213_c", "contest_id": "arc213", "problem_index": "C", "title": "C. Double X", "difficulty": 3241, "url": "https://atcoder.jp/contests/arc213/tasks/arc213_c", "datetime": 1769342400}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

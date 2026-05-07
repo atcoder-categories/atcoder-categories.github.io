@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Matrix / Binary Exponentiation</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Matrix / Binary Exponentiation</span></div>
+    <h1>Matrix / Binary Exponentiation</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc198_f", "contest_id": "abc198", "problem_index": "F", "title": "F. Cube", "difficulty": 2769, "url": "https://atcoder.jp/contests/abc198/tasks/abc198_f", "datetime": 1618142400}, {"id": "abc199_f", "contest_id": "abc199", "problem_index": "F", "title": "F. Graph Smoothing", "difficulty": 2065, "url": "https://atcoder.jp/contests/abc199/tasks/abc199_f", "datetime": 1619265600}, {"id": "abc200_f", "contest_id": "abc200", "problem_index": "F", "title": "F. Minflip Summation", "difficulty": 2556, "url": "https://atcoder.jp/contests/abc200/tasks/abc200_f", "datetime": 1620475200}, {"id": "abc204_f", "contest_id": "abc204", "problem_index": "F", "title": "F. Hanjo 2", "difficulty": 2044, "url": "https://atcoder.jp/contests/abc204/tasks/abc204_f", "datetime": 1622980800}, {"id": "abc213_h", "contest_id": "abc213", "problem_index": "H", "title": "H. Stroll", "difficulty": 2806, "url": "https://atcoder.jp/contests/abc213/tasks/abc213_h", "datetime": 1628424000}, {"id": "abc228_e", "contest_id": "abc228", "problem_index": "E", "title": "E. Integer Sequence Fair", "difficulty": 1579, "url": "https://atcoder.jp/contests/abc228/tasks/abc228_e", "datetime": 1637409600}, {"id": "abc232_e", "contest_id": "abc232", "problem_index": "E", "title": "E. Rook Path", "difficulty": 1380, "url": "https://atcoder.jp/contests/abc232/tasks/abc232_e", "datetime": 1639915200}, {"id": "abc236_g", "contest_id": "abc236", "problem_index": "G", "title": "G. Good Vertices", "difficulty": 2438, "url": "https://atcoder.jp/contests/abc236/tasks/abc236_g", "datetime": 1642939200}, {"id": "abc245_h", "contest_id": "abc245", "problem_index": "Ex", "title": "Ex. Product Modulo 2", "difficulty": 3057, "url": "https://atcoder.jp/contests/abc245/tasks/abc245_h", "datetime": 1648296000}, {"id": "abc256_g", "contest_id": "abc256", "problem_index": "G", "title": "G. Black and White Stones", "difficulty": 2250, "url": "https://atcoder.jp/contests/abc256/tasks/abc256_g", "datetime": 1655553600}, {"id": "abc258_h", "contest_id": "abc258", "problem_index": "Ex", "title": "Ex. Odd Steps", "difficulty": 2708, "url": "https://atcoder.jp/contests/abc258/tasks/abc258_h", "datetime": 1656763200}, {"id": "abc271_g", "contest_id": "abc271", "problem_index": "G", "title": "G. Access Counter", "difficulty": 2323, "url": "https://atcoder.jp/contests/abc271/tasks/abc271_g", "datetime": 1664625600}, {"id": "abc280_e", "contest_id": "abc280", "problem_index": "E", "title": "E. Critical Hit", "difficulty": 1251, "url": "https://atcoder.jp/contests/abc280/tasks/abc280_e", "datetime": 1670068800}, {"id": "abc282_e", "contest_id": "abc282", "problem_index": "E", "title": "E. Choose Two and Eat One", "difficulty": 1604, "url": "https://atcoder.jp/contests/abc282/tasks/abc282_e", "datetime": 1671278400}, {"id": "abc287_h", "contest_id": "abc287", "problem_index": "Ex", "title": "Ex. Directed Graph and Query", "difficulty": 2639, "url": "https://atcoder.jp/contests/abc287/tasks/abc287_h", "datetime": 1674907200}, {"id": "abc293_e", "contest_id": "abc293", "problem_index": "E", "title": "E. Geometric Progression", "difficulty": 1453, "url": "https://atcoder.jp/contests/abc293/tasks/abc293_e", "datetime": 1678536000}, {"id": "abc298_d", "contest_id": "abc298", "problem_index": "D", "title": "D. Writing a Numeral", "difficulty": 882, "url": "https://atcoder.jp/contests/abc298/tasks/abc298_d", "datetime": 1681560000}, {"id": "abc300_h", "contest_id": "abc300", "problem_index": "Ex", "title": "Ex. Fibonacci: Revisited", "difficulty": 3209, "url": "https://atcoder.jp/contests/abc300/tasks/abc300_h", "datetime": 1682769600}, {"id": "abc303_h", "contest_id": "abc303", "problem_index": "Ex", "title": "Ex. Constrained Tree Degree", "difficulty": 2501, "url": "https://atcoder.jp/contests/abc303/tasks/abc303_h", "datetime": 1685188800}, {"id": "abc305_g", "contest_id": "abc305", "problem_index": "G", "title": "G. Banned Substrings", "difficulty": 1989, "url": "https://atcoder.jp/contests/abc305/tasks/abc305_g", "datetime": 1686398400}, {"id": "abc309_h", "contest_id": "abc309", "problem_index": "Ex", "title": "Ex. Simple Path Counting Problem", "difficulty": 3029, "url": "https://atcoder.jp/contests/abc309/tasks/abc309_h", "datetime": 1688817600}, {"id": "abc360_e", "contest_id": "abc360", "problem_index": "E", "title": "E. Random Swaps of Balls", "difficulty": 1249, "url": "https://atcoder.jp/contests/abc360/tasks/abc360_e", "datetime": 1719748800}, {"id": "abc366_g", "contest_id": "abc366", "problem_index": "G", "title": "G. XOR Neighbors", "difficulty": 2409, "url": "https://atcoder.jp/contests/abc366/tasks/abc366_g", "datetime": 1723291200}, {"id": "abc367_e", "contest_id": "abc367", "problem_index": "E", "title": "E. Permute K times", "difficulty": 1370, "url": "https://atcoder.jp/contests/abc367/tasks/abc367_e", "datetime": 1723896000}, {"id": "abc387_g", "contest_id": "abc387", "problem_index": "G", "title": "G. Prime Circuit", "difficulty": 2986, "url": "https://atcoder.jp/contests/abc387/tasks/abc387_g", "datetime": 1735992000}, {"id": "abc439_a", "contest_id": "abc439", "problem_index": "A", "title": "A. 2^n - 2*n", "difficulty": 0, "url": "https://atcoder.jp/contests/abc439/tasks/abc439_a", "datetime": 1767441600}, {"id": "abc445_f", "contest_id": "abc445", "problem_index": "F", "title": "F. Exactly K Steps 2", "difficulty": 1514, "url": "https://atcoder.jp/contests/abc445/tasks/abc445_f", "datetime": 1771070400}, {"id": "abc449_g", "contest_id": "abc449", "problem_index": "G", "title": "G. Many Repunit Sum 2 ", "difficulty": 2631, "url": "https://atcoder.jp/contests/abc449/tasks/abc449_g", "datetime": 1773489600}, {"id": "agc062_e", "contest_id": "agc062", "problem_index": "E", "title": "E. Overlap Binary Tree", "difficulty": 4233, "url": "https://atcoder.jp/contests/agc062/tasks/agc062_e", "datetime": 1684670400}, {"id": "arc170_e", "contest_id": "arc170", "problem_index": "E", "title": "E. BDFS", "difficulty": 3174, "url": "https://atcoder.jp/contests/arc170/tasks/arc170_e", "datetime": 1705838400}, {"id": "arc176_d", "contest_id": "arc176", "problem_index": "D", "title": "D. Swap Permutation", "difficulty": 2572, "url": "https://atcoder.jp/contests/arc176/tasks/arc176_d", "datetime": 1713700800}, {"id": "arc182_c", "contest_id": "arc182", "problem_index": "C", "title": "C. Sum of Number of Divisors of Product", "difficulty": 2408, "url": "https://atcoder.jp/contests/arc182/tasks/arc182_c", "datetime": 1723377600}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

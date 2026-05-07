@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Chinese Remainder Theorem</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Chinese Remainder Theorem</span></div>
+    <h1>Chinese Remainder Theorem</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc193_e", "contest_id": "abc193", "problem_index": "E", "title": "E. Oversleeping", "difficulty": 1948, "url": "https://atcoder.jp/contests/abc193/tasks/abc193_e", "datetime": 1614427200}, {"id": "abc286_f", "contest_id": "abc286", "problem_index": "F", "title": "F. Guess The Number 2", "difficulty": 1841, "url": "https://atcoder.jp/contests/abc286/tasks/abc286_f", "datetime": 1674302400}, {"id": "abc333_g", "contest_id": "abc333", "problem_index": "G", "title": "G. Nearest Fraction", "difficulty": 2536, "url": "https://atcoder.jp/contests/abc333/tasks/abc333_g", "datetime": 1702728000}, {"id": "agc063_d", "contest_id": "agc063", "problem_index": "D", "title": "D. Many CRT", "difficulty": 3609, "url": "https://atcoder.jp/contests/agc063/tasks/agc063_d", "datetime": 1690718400}, {"id": "arc112_f", "contest_id": "arc112", "problem_index": "F", "title": "F. Die Siedler", "difficulty": 3432, "url": "https://atcoder.jp/contests/arc112/tasks/arc112_f", "datetime": 1613217600}, {"id": "arc137_a", "contest_id": "arc137", "problem_index": "A", "title": "A. Coprime Pair", "difficulty": 480, "url": "https://atcoder.jp/contests/arc137/tasks/arc137_a", "datetime": 1647691200}, {"id": "arc182_e", "contest_id": "arc182", "problem_index": "E", "title": "E. Sum of Min of Mod of Linear", "difficulty": 3098, "url": "https://atcoder.jp/contests/arc182/tasks/arc182_e", "datetime": 1723377600}, {"id": "arc185_c", "contest_id": "arc185", "problem_index": "C", "title": "C. Sum of Three Integers", "difficulty": 2242, "url": "https://atcoder.jp/contests/arc185/tasks/arc185_c", "datetime": 1728820800}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Minimum Cost Flows</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Minimum Cost Flows</span></div>
+    <h1>Minimum Cost Flows</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc224_h", "contest_id": "abc224", "problem_index": "H", "title": "H. Security Camera 2", "difficulty": 2887, "url": "https://atcoder.jp/contests/abc224/tasks/abc224_h", "datetime": 1634990400}, {"id": "abc231_h", "contest_id": "abc231", "problem_index": "H", "title": "H. Minimum Coloring", "difficulty": 2681, "url": "https://atcoder.jp/contests/abc231/tasks/abc231_h", "datetime": 1639224000}, {"id": "abc247_g", "contest_id": "abc247", "problem_index": "G", "title": "G. Dream Team", "difficulty": 2159, "url": "https://atcoder.jp/contests/abc247/tasks/abc247_g", "datetime": 1649592000}, {"id": "abc373_g", "contest_id": "abc373", "problem_index": "G", "title": "G. No Cross Matching", "difficulty": 2377, "url": "https://atcoder.jp/contests/abc373/tasks/abc373_g", "datetime": 1727524800}, {"id": "abc393_g", "contest_id": "abc393", "problem_index": "G", "title": "G. Unevenness", "difficulty": 3731, "url": "https://atcoder.jp/contests/abc393/tasks/abc393_g", "datetime": 1739620800}, {"id": "abc407_g", "contest_id": "abc407", "problem_index": "G", "title": "G. Domino Covering SUM", "difficulty": 2190, "url": "https://atcoder.jp/contests/abc407/tasks/abc407_g", "datetime": 1748088000}, {"id": "arc213_c", "contest_id": "arc213", "problem_index": "C", "title": "C. Double X", "difficulty": 3241, "url": "https://atcoder.jp/contests/arc213/tasks/arc213_c", "datetime": 1769342400}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

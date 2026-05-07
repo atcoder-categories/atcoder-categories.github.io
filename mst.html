@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Spanning Trees / MST</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Spanning Trees / MST</span></div>
+    <h1>Spanning Trees / MST</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc210_e", "contest_id": "abc210", "problem_index": "E", "title": "E. Ring MST", "difficulty": 1618, "url": "https://atcoder.jp/contests/abc210/tasks/abc210_e", "datetime": 1626523200}, {"id": "abc215_a", "contest_id": "abc215", "problem_index": "A", "title": "A. Your First Judge", "difficulty": 0, "url": "https://atcoder.jp/contests/abc215/tasks/abc215_a", "datetime": 1629547200}, {"id": "abc218_e", "contest_id": "abc218", "problem_index": "E", "title": "E. Destruction", "difficulty": 1004, "url": "https://atcoder.jp/contests/abc218/tasks/abc218_e", "datetime": 1631361600}, {"id": "abc235_e", "contest_id": "abc235", "problem_index": "E", "title": "E. MST + 1", "difficulty": 1304, "url": "https://atcoder.jp/contests/abc235/tasks/abc235_e", "datetime": 1642248000}, {"id": "abc235_h", "contest_id": "abc235", "problem_index": "Ex", "title": "Ex. Painting Weighted Graph", "difficulty": 2967, "url": "https://atcoder.jp/contests/abc235/tasks/abc235_h", "datetime": 1642248000}, {"id": "abc244_g", "contest_id": "abc244", "problem_index": "G", "title": "G. Construct Good Path", "difficulty": 2117, "url": "https://atcoder.jp/contests/abc244/tasks/abc244_g", "datetime": 1647777600}, {"id": "abc250_h", "contest_id": "abc250", "problem_index": "Ex", "title": "Ex. Trespassing Takahashi", "difficulty": 2773, "url": "https://atcoder.jp/contests/abc250/tasks/abc250_h", "datetime": 1652011200}, {"id": "abc251_f", "contest_id": "abc251", "problem_index": "F", "title": "F. Two Spanning Trees", "difficulty": 1703, "url": "https://atcoder.jp/contests/abc251/tasks/abc251_f", "datetime": 1652529600}, {"id": "abc253_h", "contest_id": "abc253", "problem_index": "Ex", "title": "Ex. We Love Forest", "difficulty": 2758, "url": "https://atcoder.jp/contests/abc253/tasks/abc253_h", "datetime": 1653739200}, {"id": "abc270_f", "contest_id": "abc270", "problem_index": "F", "title": "F. Transportation", "difficulty": 1834, "url": "https://atcoder.jp/contests/abc270/tasks/abc270_f", "datetime": 1664020800}, {"id": "abc275_h", "contest_id": "abc275", "problem_index": "Ex", "title": "Ex. Monster", "difficulty": 3210, "url": "https://atcoder.jp/contests/abc275/tasks/abc275_h", "datetime": 1667044800}, {"id": "abc282_e", "contest_id": "abc282", "problem_index": "E", "title": "E. Choose Two and Eat One", "difficulty": 1604, "url": "https://atcoder.jp/contests/abc282/tasks/abc282_e", "datetime": 1671278400}, {"id": "abc288_c", "contest_id": "abc288", "problem_index": "C", "title": "C. Don\u2019t be cycle", "difficulty": 436, "url": "https://atcoder.jp/contests/abc288/tasks/abc288_c", "datetime": 1675512000}, {"id": "abc305_f", "contest_id": "abc305", "problem_index": "F", "title": "F. Dungeon Explore", "difficulty": 1420, "url": "https://atcoder.jp/contests/abc305/tasks/abc305_f", "datetime": 1686398400}, {"id": "abc306_g", "contest_id": "abc306", "problem_index": "G", "title": "G. Return to 1", "difficulty": 2563, "url": "https://atcoder.jp/contests/abc306/tasks/abc306_g", "datetime": 1687003200}, {"id": "abc323_g", "contest_id": "abc323", "problem_index": "G", "title": "G. Inversion of Tree", "difficulty": 3091, "url": "https://atcoder.jp/contests/abc323/tasks/abc323_g", "datetime": 1696680000}, {"id": "abc328_e", "contest_id": "abc328", "problem_index": "E", "title": "E. Modulo MST", "difficulty": 1160, "url": "https://atcoder.jp/contests/abc328/tasks/abc328_e", "datetime": 1699704000}, {"id": "abc335_e", "contest_id": "abc335", "problem_index": "E", "title": "E. Non-Decreasing Colorful Path", "difficulty": 1540, "url": "https://atcoder.jp/contests/abc335/tasks/abc335_e", "datetime": 1704542400}, {"id": "abc336_g", "contest_id": "abc336", "problem_index": "G", "title": "G. 16 Integers", "difficulty": 3138, "url": "https://atcoder.jp/contests/abc336/tasks/abc336_g", "datetime": 1705233600}, {"id": "abc339_g", "contest_id": "abc339", "problem_index": "G", "title": "G. Smaller Sum", "difficulty": 1792, "url": "https://atcoder.jp/contests/abc339/tasks/abc339_g", "datetime": 1706961600}, {"id": "abc352_e", "contest_id": "abc352", "problem_index": "E", "title": "E. Clique Connect", "difficulty": 1030, "url": "https://atcoder.jp/contests/abc352/tasks/abc352_e", "datetime": 1714824000}, {"id": "abc355_f", "contest_id": "abc355", "problem_index": "F", "title": "F. MST Query", "difficulty": 1924, "url": "https://atcoder.jp/contests/abc355/tasks/abc355_f", "datetime": 1716638400}, {"id": "abc356_g", "contest_id": "abc356", "problem_index": "G", "title": "G. Freestyle", "difficulty": 3022, "url": "https://atcoder.jp/contests/abc356/tasks/abc356_g", "datetime": 1717243200}, {"id": "abc364_f", "contest_id": "abc364", "problem_index": "F", "title": "F. Range Connect MST", "difficulty": 1878, "url": "https://atcoder.jp/contests/abc364/tasks/abc364_f", "datetime": 1722081600}, {"id": "abc386_g", "contest_id": "abc386", "problem_index": "G", "title": "G. Many MST", "difficulty": 2930, "url": "https://atcoder.jp/contests/abc386/tasks/abc386_g", "datetime": 1735387200}, {"id": "abc399_g", "contest_id": "abc399", "problem_index": "G", "title": "G. Colorful Spanning Tree", "difficulty": 3625, "url": "https://atcoder.jp/contests/abc399/tasks/abc399_g", "datetime": 1743249600}, {"id": "abc419_g", "contest_id": "abc419", "problem_index": "G", "title": "G. Count Simple Paths 2", "difficulty": 2677, "url": "https://atcoder.jp/contests/abc419/tasks/abc419_g", "datetime": 1755345600}, {"id": "abc434_e", "contest_id": "abc434", "problem_index": "E", "title": "E. Distribute Bunnies", "difficulty": 1317, "url": "https://atcoder.jp/contests/abc434/tasks/abc434_e", "datetime": 1764417600}, {"id": "abc451_g", "contest_id": "abc451", "problem_index": "G", "title": "G. Minimum XOR Walk", "difficulty": 2221, "url": "https://atcoder.jp/contests/abc451/tasks/abc451_g", "datetime": 1774699200}, {"id": "agc064_b", "contest_id": "agc064", "problem_index": "B", "title": "B. Red and Blue Spanning Tree", "difficulty": 1787, "url": "https://atcoder.jp/contests/agc064/tasks/agc064_b", "datetime": 1691928000}, {"id": "agc065_f", "contest_id": "agc065", "problem_index": "F", "title": "F. Always Perfect", "difficulty": 3889, "url": "https://atcoder.jp/contests/agc065/tasks/agc065_f", "datetime": 1702814400}, {"id": "arc106_b", "contest_id": "arc106", "problem_index": "B", "title": "B. Values", "difficulty": 732, "url": "https://atcoder.jp/contests/arc106/tasks/arc106_b", "datetime": 1603540800}, {"id": "arc108_c", "contest_id": "arc108", "problem_index": "C", "title": "C. Keep Graph Connected", "difficulty": 1460, "url": "https://atcoder.jp/contests/arc108/tasks/arc108_c", "datetime": 1605960000}, {"id": "arc111_b", "contest_id": "arc111", "problem_index": "B", "title": "B. Reversible Cards", "difficulty": 1334, "url": "https://atcoder.jp/contests/arc111/tasks/arc111_b", "datetime": 1610193600}, {"id": "arc115_d", "contest_id": "arc115", "problem_index": "D", "title": "D. Odd Degree", "difficulty": 2325, "url": "https://atcoder.jp/contests/arc115/tasks/arc115_d", "datetime": 1616324400}, {"id": "arc119_d", "contest_id": "arc119", "problem_index": "D", "title": "D. Grid Repainting 3", "difficulty": 2713, "url": "https://atcoder.jp/contests/arc119/tasks/arc119_d", "datetime": 1621166400}, {"id": "arc167_c", "contest_id": "arc167", "problem_index": "C", "title": "C. MST on Line++", "difficulty": 2388, "url": "https://atcoder.jp/contests/arc167/tasks/arc167_c", "datetime": 1697371200}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

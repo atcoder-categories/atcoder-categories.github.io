@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bridges / Articulation Points</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Bridges / Articulation Points</span></div>
+    <h1>Bridges / Articulation Points</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc233_f", "contest_id": "abc233", "problem_index": "F", "title": "F. Swap and Sort", "difficulty": 2038, "url": "https://atcoder.jp/contests/abc233/tasks/abc233_f", "datetime": 1640433600}, {"id": "abc237_c", "contest_id": "abc237", "problem_index": "C", "title": "C. kasaka", "difficulty": 239, "url": "https://atcoder.jp/contests/abc237/tasks/abc237_c", "datetime": 1643544000}, {"id": "abc254_g", "contest_id": "abc254", "problem_index": "G", "title": "G. Elevators", "difficulty": 2890, "url": "https://atcoder.jp/contests/abc254/tasks/abc254_g", "datetime": 1654344000}, {"id": "abc275_a", "contest_id": "abc275", "problem_index": "A", "title": "A. Find Takahashi", "difficulty": 0, "url": "https://atcoder.jp/contests/abc275/tasks/abc275_a", "datetime": 1667044800}, {"id": "abc301_h", "contest_id": "abc301", "problem_index": "Ex", "title": "Ex. Difference of Distance", "difficulty": 2898, "url": "https://atcoder.jp/contests/abc301/tasks/abc301_h", "datetime": 1683979200}, {"id": "abc338_d", "contest_id": "abc338", "problem_index": "D", "title": "D. Island Tour", "difficulty": 1234, "url": "https://atcoder.jp/contests/abc338/tasks/abc338_d", "datetime": 1706356800}, {"id": "abc369_e", "contest_id": "abc369", "problem_index": "E", "title": "E. Sightseeing Tour ", "difficulty": 1301, "url": "https://atcoder.jp/contests/abc369/tasks/abc369_e", "datetime": 1725105600}, {"id": "abc375_g", "contest_id": "abc375", "problem_index": "G", "title": "G. Road Blocked 2", "difficulty": 2014, "url": "https://atcoder.jp/contests/abc375/tasks/abc375_g", "datetime": 1728734400}, {"id": "agc065_f", "contest_id": "agc065", "problem_index": "F", "title": "F. Always Perfect", "difficulty": 3889, "url": "https://atcoder.jp/contests/agc065/tasks/agc065_f", "datetime": 1702814400}, {"id": "arc105_c", "contest_id": "arc105", "problem_index": "C", "title": "C. Camels and Bridge", "difficulty": 1964, "url": "https://atcoder.jp/contests/arc105/tasks/arc105_c", "datetime": 1602423000}, {"id": "arc111_d", "contest_id": "arc111", "problem_index": "D", "title": "D. Orientation", "difficulty": 2064, "url": "https://atcoder.jp/contests/arc111/tasks/arc111_d", "datetime": 1610193600}, {"id": "arc134_a", "contest_id": "arc134", "problem_index": "A", "title": "A. Bridge and Sheets", "difficulty": 207, "url": "https://atcoder.jp/contests/arc134/tasks/arc134_a", "datetime": 1643457600}, {"id": "arc143_d", "contest_id": "arc143", "problem_index": "D", "title": "D. Bridges", "difficulty": 2229, "url": "https://atcoder.jp/contests/arc143/tasks/arc143_d", "datetime": 1656244800}, {"id": "arc153_f", "contest_id": "arc153", "problem_index": "F", "title": "F. Tri-Colored Paths", "difficulty": 3597, "url": "https://atcoder.jp/contests/arc153/tasks/arc153_f", "datetime": 1673697600}, {"id": "arc211_d", "contest_id": "arc211", "problem_index": "D", "title": "D. Michishirube", "difficulty": 2301, "url": "https://atcoder.jp/contests/arc211/tasks/arc211_d", "datetime": 1764504000}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

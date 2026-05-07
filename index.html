@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AtCoder Categories</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@300;400;600;700&display=swap');
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0d0d0f;
+            --surface: #141417;
+            --surface-hover: #1a1a1f;
+            --border: #1e1e24;
+            --border-hover: #2e2e3a;
+            --text-primary: #e8e8f0;
+            --text-secondary: #6b6b80;
+            --text-muted: #3f3f50;
+            --accent-blue: #5b8def;
+        }
+
+        body.light {
+            --bg: #f5f5f7;
+            --surface: #ffffff;
+            --surface-hover: #f0f0f5;
+            --border: #dcdce4;
+            --border-hover: #c0c0cc;
+            --text-primary: #1a1a2e;
+            --text-secondary: #5a5a72;
+            --text-muted: #9090a8;
+            --accent-blue: #3a6fd8;
+        }
+
+        body.light body::before {
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+        }
+
+        body.light .subsub-item {
+            background: var(--surface);
+        }
+
+        body.light .subsub-item:hover {
+            background: var(--surface-hover);
+        }
+
+        .theme-btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.06em;
+            padding: 6px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            position: fixed;
+            top: 20px;
+            right: 24px;
+            z-index: 100;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text-primary);
+            font-family: 'Sora', sans-serif;
+            min-height: 100vh;
+            padding: 60px 24px 80px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.013) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.013) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .breadcrumb {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+            line-height: 1.7;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        /* ── Masonry columns ───────────────────────── */
+
+        .cat-columns {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .cat-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        @media (max-width: 860px) {
+            .cat-columns {
+                flex-wrap: wrap;
+            }
+
+            .cat-col {
+                flex: 1 1 calc(50% - 6px);
+            }
+        }
+
+        @media (max-width: 520px) {
+            .cat-col {
+                flex: 1 1 100%;
+            }
+        }
+
+        .cat-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+            margin-left: auto;
+        }
+
+        .cat-count-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            color: #ff8000;
+            background: rgba(255, 128, 0, 0.15);
+            padding: 3px 10px;
+            border-radius: 20px;
+            flex-shrink: 0;
+            margin-left: auto;
+        }
+
+        @media (max-width: 860px) {
+            .cat-columns {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .cat-columns {
+                columns: 1;
+            }
+        }
+
+        /* ── Card ──────────────────────────────────── */
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            break-inside: avoid;
+            margin-bottom: 12px;
+            transition: border-color 0.15s ease;
+        }
+
+        .card:hover {
+            border-color: var(--border-hover);
+        }
+
+        /* ── Card Header ───────────────────────────── */
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.15s ease;
+        }
+
+        .card-header:hover {
+            background: var(--surface-hover);
+        }
+
+        .card-header:hover .card-title {
+            color: var(--accent-blue);
+        }
+
+        .card-index {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+            width: 20px;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: color 0.15s;
+            line-height: 1.3;
+            flex: 1;
+        }
+
+        /* ── Sub items ─────────────────────────────── */
+
+        .card-body {
+            border-top: 1px solid var(--border);
+        }
+
+        a.sub-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 16px 8px 20px;
+            border-bottom: 1px solid var(--border);
+            gap: 8px;
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.15s;
+        }
+
+        a.sub-item:last-child {
+            border-bottom: none;
+        }
+
+        a.sub-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        a.sub-item:hover .sub-link {
+            color: var(--text-primary);
+        }
+
+        .sub-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .tree-icon {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+            user-select: none;
+        }
+
+        .sub-link {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: color 0.15s;
+        }
+
+        .sub-link.bold {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* ── Sub-sub items ─────────────────────────── */
+
+        .subsub-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 16px 6px 40px;
+            border-bottom: 1px solid var(--border);
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.15);
+            transition: background 0.15s;
+        }
+
+        .subsub-item:last-child {
+            border-bottom: none;
+        }
+
+        .subsub-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .subsub-item:hover .subsub-link {
+            color: var(--text-secondary);
+        }
+
+        a.subsub-left {
+            text-decoration: none;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .subsub-link {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            color: var(--text-muted);
+            transition: color 0.15s;
+        }
+
+        .footnote {
+            margin-top: 20px;
+            font-size: 11.5px;
+            color: var(--text-muted);
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.04em;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <div class="header">
+            <div class="breadcrumb">AtCoder Categories</div>
+            <p class="subtitle">Problem tags surely ruin the experience of solving a problem. But what if you want to
+                strengthen a weak area with high-quality problems from AtCoder? This tool lets you practice by topic,
+                tracking your progress ~ without exposing you to the full set of tags a problem carries. Select a
+                category below to begin.</p>
+        </div>
+
+        <div class="cat-columns" id="cat-grid"></div>
+
+        <p class="footnote">Categories and problem sets are reviewed on a regular basis. Problems from recent contests
+            are added to the relevant categories each week.</p>
+
+    </div>
+    <button class="theme-btn" id="theme-btn">Light</button>
+    <script>
+        function getDifficultyColorLight(difficulty) {
+            if (difficulty <= 0) return "rgb(128, 128, 128)";
+            if (difficulty < 400) return "rgb(128, 128, 128)";
+            if (difficulty < 800) return "rgb(128, 64, 0)";
+            if (difficulty < 1200) return "rgb(0, 128, 0)";
+            if (difficulty < 1600) return "rgb(0, 192, 192)";
+            if (difficulty < 2000) return "rgb(0, 0, 255)";
+            if (difficulty < 2400) return "rgb(192, 192, 0)";
+            if (difficulty < 2800) return "rgb(255, 128, 0)";
+            if (difficulty < 3200) return "rgb(255, 0, 0)";
+            if (difficulty < 3600) return "rgb(150, 92, 44)";
+            if (difficulty < 4000) return "rgb(128, 128, 128)";
+            return "rgb(255, 215, 0)";
+        }
+
+        function getDifficultyColorDark(difficulty) {
+            if (difficulty <= 0) return "rgb(192, 192, 192)";
+            if (difficulty < 400) return "rgb(192, 192, 192)";
+            if (difficulty < 800) return "rgb(176, 140, 86)";
+            if (difficulty < 1200) return "rgb(63, 175, 63)";
+            if (difficulty < 1600) return "rgb(66, 224, 224)";
+            if (difficulty < 2000) return "rgb(136, 136, 255)";
+            if (difficulty < 2400) return "rgb(255, 255, 86)";
+            if (difficulty < 2800) return "rgb(255, 184, 54)";
+            if (difficulty < 3200) return "rgb(255, 103, 103)";
+            if (difficulty < 3600) return "rgb(150, 92, 44)";
+            if (difficulty < 4000) return "rgb(128, 128, 128)";
+            return "rgb(255, 215, 0)";
+        }
+
+        function getDifficultyColor(difficulty) {
+            return isLight() ? getDifficultyColorLight(difficulty) : getDifficultyColorDark(difficulty);
+        }
+
+        function isLight() {
+            return document.body.classList.contains("light");
+        }
+
+        function applyTheme(light) {
+            if (light) {
+                document.body.classList.add("light");
+                document.getElementById("theme-btn").textContent = "Dark";
+            } else {
+                document.body.classList.remove("light");
+                document.getElementById("theme-btn").textContent = "Light";
+            }
+            // rerender difficulty circles and title colors if on a category page
+            if (typeof applySort === "function") applySort();
+        }
+
+        function initTheme() {
+            const saved = getCookie("theme");
+            applyTheme(saved === "light");
+
+            document.getElementById("theme-btn").addEventListener("click", () => {
+                const light = !isLight();
+                setCookie("theme", light ? "light" : "dark");
+                applyTheme(light);
+            });
+        }
+
+        initTheme();
+    </script>
+    <script>
+        function getCookie(name) {
+            const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+            return match ? decodeURIComponent(match[1]) : null;
+        }
+        function setCookie(name, value) {
+            const expires = new Date();
+            expires.setFullYear(expires.getFullYear() + 1);
+            document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires.toUTCString()}; path=/`;
+        }
+        function isLight() { return document.body.classList.contains("light"); }
+        function applyTheme(light) {
+            document.body.classList.toggle("light", light);
+            document.getElementById("theme-btn").textContent = light ? "Dark" : "Light";
+        }
+        const saved = getCookie("theme");
+        applyTheme(saved === "light");
+        document.getElementById("theme-btn").addEventListener("click", () => {
+            const light = !isLight();
+            setCookie("theme", light ? "light" : "dark");
+            applyTheme(light);
+        });
+    </script>
+    <script>
+        const CATEGORIES = [
+            {
+                title: "Sorting & Searching", href: "sorting.html", subs: [
+                    { title: "Inversions", href: "inversions.html" },
+                    { title: "Binary Search", href: "binary_search.html" },
+                    { title: "Two Pointers / Sliding Window", href: "two_pointers.html" },
+                    { title: "Stacks / Queues", href: "stacks_queues.html" },
+                    { title: "Binary Heap / Priority Queue", href: "heap.html" }
+                ]
+            },
+            { title: "Greedy Algorithms", href: "greedy.html", subs: [] },
+            { title: "Bitwise Operations", href: "bitwise.html", subs: [] },
+            {
+                title: "Dynamic Programming", href: "dp.html", subs: [
+                    { title: "Knapsack", href: "dp_knapsack.html" },
+                    { title: "Bitmask DP / DP on Subsets / DP on Profile", href: "dp_bitmask.html" },
+                    {
+                        title: "Tree DP", href: "dp_tree.html", expandable: true, subsubs: [
+                            { title: "Reroot DP", href: "dp_reroot.html" }
+                        ]
+                    },
+                    { title: "DP on DAG", href: "dp_dag.html" },
+                    { title: "Counting using DP", href: "dp_count.html" },
+                    { title: "LCS", href: "dp_lcs.html" },
+                    { title: "LIS", href: "dp_lis.html" }
+                ]
+            },
+            {
+                title: "Graph Algorithms", href: "graph.html", subs: [
+                    { title: "BFS / DFS", href: "bfs_dfs.html" },
+                    { title: "Topological Sorting", href: "topo.html" },
+                    { title: "SCC / 2-SAT", href: "scc.html" },
+                    { title: "Tarjan's Algorithm", href: "tarjan.html" },
+                    { title: "Euler Path / Cycle", href: "euler.html" },
+                    { title: "Hamiltonian Path / Cycle", href: "hamiltonian.html" },
+                    { title: "Bridges / Articulation Points", href: "bridges.html" },
+                    { title: "Spanning Trees / MST", href: "mst.html" },
+                    {
+                        title: "Shortest Path", href: "shortest_path.html", expandable: true, subsubs: [
+                            { title: "Dijkstra's Algorithm", href: "dijkstra.html" },
+                            { title: "Bellman-Ford Algorithm", href: "bellman_ford.html" },
+                            { title: "Floyd-Warshall Algorithm", href: "floyd_warshall.html" }
+                        ]
+                    }
+                ]
+            },
+            { title: "Disjoint Set Union", href: "dsu.html", subs: [] },
+            {
+                title: "Flow / Matching", href: "flowmatching.html", subs: [
+                    {
+                        title: "Matchings", href: "matching.html", expandable: true, subsubs: [
+                            { title: "Hopcroft-Karp Algorithm", href: "hopcroft_karp.html" },
+                            { title: "Assignment Problem / Hungarian Algorithm", href: "hungarian.html" }
+                        ]
+                    },
+                    {
+                        title: "Flows / Cuts", href: "flows.html", expandable: true, subsubs: [
+                            { title: "Ford-Fulkerson Algorithm", href: "ford_fulkerson.html" },
+                            { title: "Dinic's Algorithm", href: "dinic.html" },
+                            { title: "Minimum Cost Flows", href: "min_cost_flow.html" }
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "Tree Algorithms", href: "tree.html", subs: [
+                    { title: "Binary Lifting / LCA", href: "lca.html" },
+                    { title: "Heavy-Light Decomposition", href: "hld.html" },
+                    { title: "Centroid Decomposition", href: "centroid.html"},
+                ]
+            },
+            {
+                title: "Range Queries", href: "range.html", subs: [
+                    { title: "Segment Tree", href: "segment_tree.html" },
+                    { title: "Fenwick Tree", href: "fenwick.html" },
+                    { title: "Sparse Table", href: "sparse_table.html" },
+                    { title: "Splay Tree", href: "splay.html" },
+                    { title: "Y-Fast Trie", href: "yfast.html" }
+                ]
+            },
+            {
+                title: "Combinatorics / Counting", href: "counting.html", subs: [
+                    { title: "Inclusion / Exclusion", href: "inclusion_exclusion.html" },
+                    { title: "Pigeonhole Principle", href: "pigeonhole.html" },
+                    { title: "FPS / Generating Functions", href: "gf.html" }
+                ]
+            },
+            { title: "Probability / Expected Value", href: "probability.html", subs: [] },
+            {
+                title: "Number Theory", href: "nt.html", subs: [
+                    {
+                        title: "Divisibility / Factorization", href: "nt_divisibility.html", expandable: true, subsubs: [
+                            { title: "Factorization Techniques", href: "nt_factorization.html" },
+                            { title: "Prime Numbers", href: "nt_primes.html" },
+                            { title: "GCD / Euclid / Extended Euclidean", href: "nt_gcd.html" },
+                            { title: "LCM", href: "nt_lcm.html" },
+                            { title: "Unique Factorization", href: "nt_uf.html" }
+                        ]
+                    },
+                    { title: "Matrix / Binary Exponentiation", href: "binary_exp.html" },
+                    { title: "Diophantine Equations", href: "nt_diophantine.html" },
+                    { title: "Modular Arithmetic", href: "nt_modular.html" },
+                    { title: "Chinese Remainder Theorem", href: "nt_crt.html" },
+                    {
+                        title: "Residues & Primitive Roots", href: "nt_residues.html", expandable: true, subsubs: [
+                            { title: "Multiplicative Order", href: "nt_mult_order.html" },
+                            { title: "Primitive Roots mod p / p^n", href: "nt_prim_roots.html" }
+                        ]
+                    },
+                    {
+                        title: "Number-Theoretic Functions", href: "nt_functions.html", expandable: true, subsubs: [
+                            { title: "Number of Divisors / Sum of Divisors", href: "nt_num_div.html" },
+                            { title: "Euler's Totient", href: "nt_totient.html" },
+                            { title: "Möbius Inversion", href: "nt_mobius.html" }
+                        ]
+                    },
+                    { title: "Fast Fourier Transform / NTT", href: "fft.html" }
+                ]
+            },
+            {
+                title: "Game Theory", href: "game_theory.html", subs: [
+                    { title: "Nim", href: "nim.html" },
+                    { title: "Sprague-Grundy", href: "sprague_grundy.html" },
+                    { title: "Graph Games", href: "graph_games.html" },
+                    { title: "Green Hackenbush / Colon / Fusion Principle", href: "hackenbush.html" }
+                ]
+            },
+            {
+                title: "String Algorithms", href: "strings.html", subs: [
+                    { title: "KMP / Z-Algorithm", href: "kmp.html" },
+                    { title: "Aho-Corasick Algorithm", href: "aho_corasick.html" },
+                    { title: "Finite State Automata / Trie", href: "trie.html" },
+                    { title: "Suffix Array", href: "suffix_array.html" },
+                    { title: "Suffix Tree", href: "suffix_tree.html" }
+                ]
+            },
+            { title: "Subarrays / Subsequences", href: "subarrays_subsequences.html", subs: [] },
+            { title: "Subsets / Set Partitions", href: "subsets.html", subs: [] },
+            { title: "Linear Programming", href: "lp.html", subs: [] },
+            { title: "Geometry", href: "geometry.html", subs: [] },
+            { title: "Construction Problems", href: "construction.html", subs: [] },
+            { title: "Interactive Problems", href: "interactive.html", subs: [] },
+            { title: "Other / Uncategorized", href: "other.html", subs: [] },
+        ];
+
+        function slugify(str) {
+            return str.toLowerCase().replace(/[^a-z0-9]+/g, "_");
+        }
+
+
+        function buildCard(cat, idx) {
+            const hasSubs = cat.subs && cat.subs.length > 0;
+            const num = String(idx + 1).padStart(2, "0");
+
+            let subsHTML = "";
+            if (hasSubs) {
+                cat.subs.forEach((sub, si) => {
+                    const isLast = si === cat.subs.length - 1;
+                    const hasSubsub = sub.expandable && sub.subsubs && sub.subsubs.length > 0;
+
+                    let subsubHTML = "";
+                    if (hasSubsub) {
+                        subsubHTML = sub.subsubs.map((ss, ssi) => {
+                            const ssLast = ssi === sub.subsubs.length - 1;
+                            return `<div class="subsub-item">
+            <a class="subsub-left" href="${ss.href}">
+              <span class="tree-icon">${ssLast ? "└" : "├"}</span>
+              <span class="subsub-link">${ss.title}</span>
+            </a>
+            <span class="cat-count" data-href="${ss.href}">0</span>
+          </div>`;
+                        }).join("");
+                    }
+
+                    subsHTML += `<div>
+        <a class="sub-item" href="${sub.href}">
+          <div class="sub-left">
+            <span class="tree-icon">${isLast && !hasSubsub ? "└" : "├"}</span>
+            <span class="sub-link ${hasSubsub ? 'bold' : ''}">${sub.title}</span>
+          </div>
+          <span class="cat-count" data-href="${sub.href}">0</span>
+        </a>
+        ${subsubHTML}
+      </div>`;
+                });
+            }
+
+            return `<div class="card">
+  <a class="card-header" href="${cat.href}">
+    <span class="card-index">${num}</span>
+    <span class="card-title">${cat.title}</span>
+    <span class="cat-count-badge" data-href="${cat.href}">0</span>
+  </a>
+  ${hasSubs ? `<div class="card-body">${subsHTML}</div>` : ""}
+</div>`;
+        }
+
+        const cols = [[], [], []];
+        CATEGORIES.forEach((cat, i) => cols[i % 3].push(buildCard(cat, i)));
+        document.getElementById("cat-grid").innerHTML =
+            cols.map(col => `<div class="cat-col">${col.join("")}</div>`).join("");
+    </script>
+    <script src="count_script.js"></script>
+</body>
+
+</html>

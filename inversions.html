@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Inversions</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Inversions</span></div>
+    <h1>Inversions</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc190_f", "contest_id": "abc190", "problem_index": "F", "title": "F. Shift and Inversions", "difficulty": 1321, "url": "https://atcoder.jp/contests/abc190/tasks/abc190_f", "datetime": 1612008000}, {"id": "abc213_h", "contest_id": "abc213", "problem_index": "H", "title": "H. Stroll", "difficulty": 2806, "url": "https://atcoder.jp/contests/abc213/tasks/abc213_h", "datetime": 1628424000}, {"id": "abc217_g", "contest_id": "abc217", "problem_index": "G", "title": "G. Groups", "difficulty": 2047, "url": "https://atcoder.jp/contests/abc217/tasks/abc217_g", "datetime": 1630756800}, {"id": "abc222_h", "contest_id": "abc222", "problem_index": "H", "title": "H. Beautiful Binary Tree", "difficulty": 3477, "url": "https://atcoder.jp/contests/abc222/tasks/abc222_h", "datetime": 1633780800}, {"id": "abc232_f", "contest_id": "abc232", "problem_index": "F", "title": "F. Simple Operations on Sequence", "difficulty": 1857, "url": "https://atcoder.jp/contests/abc232/tasks/abc232_f", "datetime": 1639915200}, {"id": "abc244_d", "contest_id": "abc244", "problem_index": "D", "title": "D. Swap Hats", "difficulty": 47, "url": "https://atcoder.jp/contests/abc244/tasks/abc244_d", "datetime": 1647777600}, {"id": "abc247_h", "contest_id": "abc247", "problem_index": "Ex", "title": "Ex. Rearranging Problem", "difficulty": 2664, "url": "https://atcoder.jp/contests/abc247/tasks/abc247_h", "datetime": 1649592000}, {"id": "abc261_f", "contest_id": "abc261", "problem_index": "F", "title": "F. Sorting Color Balls", "difficulty": 1587, "url": "https://atcoder.jp/contests/abc261/tasks/abc261_f", "datetime": 1658577600}, {"id": "abc264_d", "contest_id": "abc264", "problem_index": "D", "title": "D. \"redocta\".swap(i,i+1)", "difficulty": 414, "url": "https://atcoder.jp/contests/abc264/tasks/abc264_d", "datetime": 1660392000}, {"id": "abc265_g", "contest_id": "abc265", "problem_index": "G", "title": "G. 012 Inversion", "difficulty": 2436, "url": "https://atcoder.jp/contests/abc265/tasks/abc265_g", "datetime": 1661083200}, {"id": "abc271_h", "contest_id": "abc271", "problem_index": "Ex", "title": "Ex. General General", "difficulty": 2908, "url": "https://atcoder.jp/contests/abc271/tasks/abc271_h", "datetime": 1664625600}, {"id": "abc292_f", "contest_id": "abc292", "problem_index": "F", "title": "F. Regular Triangle Inside a Rectangle", "difficulty": 1522, "url": "https://atcoder.jp/contests/abc292/tasks/abc292_f", "datetime": 1677931200}, {"id": "abc296_f", "contest_id": "abc296", "problem_index": "F", "title": "F. Simultaneous Swap", "difficulty": 1811, "url": "https://atcoder.jp/contests/abc296/tasks/abc296_f", "datetime": 1680350400}, {"id": "abc323_g", "contest_id": "abc323", "problem_index": "G", "title": "G. Inversion of Tree", "difficulty": 3091, "url": "https://atcoder.jp/contests/abc323/tasks/abc323_g", "datetime": 1696680000}, {"id": "abc330_g", "contest_id": "abc330", "problem_index": "G", "title": "G. Inversion Squared", "difficulty": 3455, "url": "https://atcoder.jp/contests/abc330/tasks/abc330_g", "datetime": 1700913600}, {"id": "abc332_d", "contest_id": "abc332", "problem_index": "D", "title": "D. Swapping Puzzle", "difficulty": 1175, "url": "https://atcoder.jp/contests/abc332/tasks/abc332_d", "datetime": 1702209600}, {"id": "abc337_g", "contest_id": "abc337", "problem_index": "G", "title": "G. Tree Inversion", "difficulty": 2080, "url": "https://atcoder.jp/contests/abc337/tasks/abc337_g", "datetime": 1705752000}, {"id": "abc345_g", "contest_id": "abc345", "problem_index": "G", "title": "G. Sugoroku 5", "difficulty": 3343, "url": "https://atcoder.jp/contests/abc345/tasks/abc345_g", "datetime": 1710590400}, {"id": "abc376_g", "contest_id": "abc376", "problem_index": "G", "title": "G. Treasure Hunting", "difficulty": 2858, "url": "https://atcoder.jp/contests/abc376/tasks/abc376_g", "datetime": 1729339200}, {"id": "abc380_g", "contest_id": "abc380", "problem_index": "G", "title": "G. Another Shuffle Window", "difficulty": 1995, "url": "https://atcoder.jp/contests/abc380/tasks/abc380_g", "datetime": 1731758400}, {"id": "abc387_g", "contest_id": "abc387", "problem_index": "G", "title": "G. Prime Circuit", "difficulty": 2986, "url": "https://atcoder.jp/contests/abc387/tasks/abc387_g", "datetime": 1735992000}, {"id": "abc396_f", "contest_id": "abc396", "problem_index": "F", "title": "F. Rotated Inversions", "difficulty": 1479, "url": "https://atcoder.jp/contests/abc396/tasks/abc396_f", "datetime": 1741435200}, {"id": "abc434_f", "contest_id": "abc434", "problem_index": "F", "title": "F. Concat (2nd)", "difficulty": 2600, "url": "https://atcoder.jp/contests/abc434/tasks/abc434_f", "datetime": 1764417600}, {"id": "abc436_f", "contest_id": "abc436", "problem_index": "F", "title": "F. Starry Landscape Photo", "difficulty": 1336, "url": "https://atcoder.jp/contests/abc436/tasks/abc436_f", "datetime": 1765627200}, {"id": "abc441_e", "contest_id": "abc441", "problem_index": "E", "title": "E. A > B substring", "difficulty": 969, "url": "https://atcoder.jp/contests/abc441/tasks/abc441_e", "datetime": 1768651200}, {"id": "abc452_f", "contest_id": "abc452", "problem_index": "F", "title": "F. Interval Inversion Count", "difficulty": 1630, "url": "https://atcoder.jp/contests/abc452/tasks/abc452_f", "datetime": 1775304000}, {"id": "agc054_c", "contest_id": "agc054", "problem_index": "C", "title": "C. Roughly Sorted", "difficulty": 1863, "url": "https://atcoder.jp/contests/agc054/tasks/agc054_c", "datetime": 1624795200}, {"id": "agc058_e", "contest_id": "agc058", "problem_index": "E", "title": "E. Nearer Permutation", "difficulty": 3825, "url": "https://atcoder.jp/contests/agc058/tasks/agc058_e", "datetime": 1660479000}, {"id": "agc065_e", "contest_id": "agc065", "problem_index": "E", "title": "E. One Two Three", "difficulty": 4235, "url": "https://atcoder.jp/contests/agc065/tasks/agc065_e", "datetime": 1702814400}, {"id": "agc074_b", "contest_id": "agc074", "problem_index": "B", "title": "B. Swap if Equal Length and Sum", "difficulty": 2626, "url": "https://atcoder.jp/contests/agc074/tasks/agc074_b", "datetime": 1761480000}, {"id": "arc120_c", "contest_id": "arc120", "problem_index": "C", "title": "C. Swaps 2", "difficulty": 1478, "url": "https://atcoder.jp/contests/arc120/tasks/arc120_c", "datetime": 1621767600}, {"id": "arc123_f", "contest_id": "arc123", "problem_index": "F", "title": "F. Insert Addition", "difficulty": 3424, "url": "https://atcoder.jp/contests/arc123/tasks/arc123_f", "datetime": 1626609600}, {"id": "arc126_d", "contest_id": "arc126", "problem_index": "D", "title": "D. Pure Straight", "difficulty": 2332, "url": "https://atcoder.jp/contests/arc126/tasks/arc126_d", "datetime": 1632056400}, {"id": "arc136_b", "contest_id": "arc136", "problem_index": "B", "title": "B. Triple Shift", "difficulty": 1358, "url": "https://atcoder.jp/contests/arc136/tasks/arc136_b", "datetime": 1645963200}, {"id": "arc154_e", "contest_id": "arc154", "problem_index": "E", "title": "E. Reverse and Inversion", "difficulty": 3506, "url": "https://atcoder.jp/contests/arc154/tasks/arc154_e", "datetime": 1674388800}, {"id": "arc160_a", "contest_id": "arc160", "problem_index": "A", "title": "A. Reverse and Count", "difficulty": 1275, "url": "https://atcoder.jp/contests/arc160/tasks/arc160_a", "datetime": 1684065600}, {"id": "arc162_b", "contest_id": "arc162", "problem_index": "B", "title": "B. Insertion Sort 2", "difficulty": 1124, "url": "https://atcoder.jp/contests/arc162/tasks/arc162_b", "datetime": 1687089600}, {"id": "arc165_f", "contest_id": "arc165", "problem_index": "F", "title": "F. Make Adjacent", "difficulty": 3235, "url": "https://atcoder.jp/contests/arc165/tasks/arc165_f", "datetime": 1694952000}, {"id": "arc166_d", "contest_id": "arc166", "problem_index": "D", "title": "D. Interval Counts", "difficulty": 2192, "url": "https://atcoder.jp/contests/arc166/tasks/arc166_d", "datetime": 1696766400}, {"id": "arc168_a", "contest_id": "arc168", "problem_index": "A", "title": "A. <Inversion>", "difficulty": 64, "url": "https://atcoder.jp/contests/arc168/tasks/arc168_a", "datetime": 1700395200}, {"id": "arc178_f", "contest_id": "arc178", "problem_index": "F", "title": "F. Long Sequence Inversion", "difficulty": 3863, "url": "https://atcoder.jp/contests/arc178/tasks/arc178_f", "datetime": 1716120000}, {"id": "arc180_a", "contest_id": "arc180", "problem_index": "A", "title": "A. ABA and BAB", "difficulty": 322, "url": "https://atcoder.jp/contests/arc180/tasks/arc180_a", "datetime": 1719662400}, {"id": "arc180_b", "contest_id": "arc180", "problem_index": "B", "title": "B. Improve Inversions", "difficulty": 1797, "url": "https://atcoder.jp/contests/arc180/tasks/arc180_b", "datetime": 1719662400}, {"id": "arc180_e", "contest_id": "arc180", "problem_index": "E", "title": "E. LIS and Inversion", "difficulty": 3549, "url": "https://atcoder.jp/contests/arc180/tasks/arc180_e", "datetime": 1719662400}, {"id": "arc181_d", "contest_id": "arc181", "problem_index": "D", "title": "D. Prefix Bubble Sort", "difficulty": 2227, "url": "https://atcoder.jp/contests/arc181/tasks/arc181_d", "datetime": 1722772800}, {"id": "arc213_a", "contest_id": "arc213", "problem_index": "A", "title": "A. Swapping Game", "difficulty": 1208, "url": "https://atcoder.jp/contests/arc213/tasks/arc213_a", "datetime": 1769342400}, {"id": "arc213_d", "contest_id": "arc213", "problem_index": "D", "title": "D. Minimize Inversion", "difficulty": 3202, "url": "https://atcoder.jp/contests/arc213/tasks/arc213_d", "datetime": 1769342400}, {"id": "arc214_e", "contest_id": "arc214", "problem_index": "E", "title": "E. Swap K times", "difficulty": 2651, "url": "https://atcoder.jp/contests/arc214/tasks/arc214_e", "datetime": 1770552000}, {"id": "arc218_c", "contest_id": "arc218", "problem_index": "C", "title": "C. Amidakuji", "difficulty": 1826, "url": "https://atcoder.jp/contests/arc218/tasks/arc218_c", "datetime": 1777809600}, {"id": "arc218_e", "contest_id": "arc218", "problem_index": "E", "title": "E. Reverse and Reverse", "difficulty": 2705, "url": "https://atcoder.jp/contests/arc218/tasks/arc218_e", "datetime": 1777809600}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LCM</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>LCM</span></div>
+    <h1>LCM</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc193_e", "contest_id": "abc193", "problem_index": "E", "title": "E. Oversleeping", "difficulty": 1948, "url": "https://atcoder.jp/contests/abc193/tasks/abc193_e", "datetime": 1614427200}, {"id": "abc226_f", "contest_id": "abc226", "problem_index": "F", "title": "F. Score of Permutations", "difficulty": 2086, "url": "https://atcoder.jp/contests/abc226/tasks/abc226_f", "datetime": 1636286400}, {"id": "abc236_h", "contest_id": "abc236", "problem_index": "Ex", "title": "Ex. Distinct Multiples", "difficulty": 2898, "url": "https://atcoder.jp/contests/abc236/tasks/abc236_h", "datetime": 1642939200}, {"id": "abc253_d", "contest_id": "abc253", "problem_index": "D", "title": "D. FizzBuzz Sum Hard", "difficulty": 520, "url": "https://atcoder.jp/contests/abc253/tasks/abc253_d", "datetime": 1653739200}, {"id": "abc259_e", "contest_id": "abc259", "problem_index": "E", "title": "E. LCM on Whiteboard", "difficulty": 1370, "url": "https://atcoder.jp/contests/abc259/tasks/abc259_e", "datetime": 1657368000}, {"id": "abc286_f", "contest_id": "abc286", "problem_index": "F", "title": "F. Guess The Number 2", "difficulty": 1841, "url": "https://atcoder.jp/contests/abc286/tasks/abc286_f", "datetime": 1674302400}, {"id": "abc306_g", "contest_id": "abc306", "problem_index": "G", "title": "G. Return to 1", "difficulty": 2563, "url": "https://atcoder.jp/contests/abc306/tasks/abc306_g", "datetime": 1687003200}, {"id": "abc319_e", "contest_id": "abc319", "problem_index": "E", "title": "E. Bus Stops", "difficulty": 1353, "url": "https://atcoder.jp/contests/abc319/tasks/abc319_e", "datetime": 1694260800}, {"id": "abc335_g", "contest_id": "abc335", "problem_index": "G", "title": "G. Discrete Logarithm Problems", "difficulty": 2614, "url": "https://atcoder.jp/contests/abc335/tasks/abc335_g", "datetime": 1704542400}, {"id": "abc341_d", "contest_id": "abc341", "problem_index": "D", "title": "D. Only one of two", "difficulty": 829, "url": "https://atcoder.jp/contests/abc341/tasks/abc341_d", "datetime": 1708171200}, {"id": "abc349_f", "contest_id": "abc349", "problem_index": "F", "title": "F. Subsequence LCM", "difficulty": 2169, "url": "https://atcoder.jp/contests/abc349/tasks/abc349_f", "datetime": 1713009600}, {"id": "abc371_g", "contest_id": "abc371", "problem_index": "G", "title": "G. Lexicographically Smallest Permutation", "difficulty": 2348, "url": "https://atcoder.jp/contests/abc371/tasks/abc371_g", "datetime": 1726315200}, {"id": "abc412_e", "contest_id": "abc412", "problem_index": "E", "title": "E. LCM Sequence", "difficulty": 1496, "url": "https://atcoder.jp/contests/abc412/tasks/abc412_e", "datetime": 1751112000}, {"id": "abc445_e", "contest_id": "abc445", "problem_index": "E", "title": "E. Many LCMs", "difficulty": 1337, "url": "https://atcoder.jp/contests/abc445/tasks/abc445_e", "datetime": 1771070400}, {"id": "agc057_d", "contest_id": "agc057", "problem_index": "D", "title": "D. Sum Avoidance", "difficulty": 3307, "url": "https://atcoder.jp/contests/agc057/tasks/agc057_d", "datetime": 1651924800}, {"id": "agc063_d", "contest_id": "agc063", "problem_index": "D", "title": "D. Many CRT", "difficulty": 3609, "url": "https://atcoder.jp/contests/agc063/tasks/agc063_d", "datetime": 1690718400}, {"id": "agc067_c", "contest_id": "agc067", "problem_index": "C", "title": "C. Divisibility Homomorphism", "difficulty": 2829, "url": "https://atcoder.jp/contests/agc067/tasks/agc067_c", "datetime": 1723982400}, {"id": "arc122_e", "contest_id": "arc122", "problem_index": "E", "title": "E. Increasing LCMs", "difficulty": 2535, "url": "https://atcoder.jp/contests/arc122/tasks/arc122_e", "datetime": 1623499200}, {"id": "arc124_c", "contest_id": "arc124", "problem_index": "C", "title": "C. LCM of GCDs", "difficulty": 1495, "url": "https://atcoder.jp/contests/arc124/tasks/arc124_c", "datetime": 1627214400}, {"id": "arc165_a", "contest_id": "arc165", "problem_index": "A", "title": "A. Sum equals LCM", "difficulty": 275, "url": "https://atcoder.jp/contests/arc165/tasks/arc165_a", "datetime": 1694952000}, {"id": "arc166_b", "contest_id": "arc166", "problem_index": "B", "title": "B. Make Multiples", "difficulty": 1134, "url": "https://atcoder.jp/contests/arc166/tasks/arc166_b", "datetime": 1696766400}, {"id": "arc166_f", "contest_id": "arc166", "problem_index": "F", "title": "F. Tangent Addition Formula", "difficulty": 3692, "url": "https://atcoder.jp/contests/arc166/tasks/arc166_f", "datetime": 1696766400}, {"id": "arc200_b", "contest_id": "arc200", "problem_index": "B", "title": "B. LCM", "difficulty": 1543, "url": "https://atcoder.jp/contests/arc200/tasks/arc200_b", "datetime": 1749988800}, {"id": "arc202_c", "contest_id": "arc202", "problem_index": "C", "title": "C. Repunits", "difficulty": 2274, "url": "https://atcoder.jp/contests/arc202/tasks/arc202_c", "datetime": 1753012800}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

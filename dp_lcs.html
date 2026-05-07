@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LCS</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>LCS</span></div>
+    <h1>LCS</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc213_f", "contest_id": "abc213", "problem_index": "F", "title": "F. Common Prefixes", "difficulty": 2215, "url": "https://atcoder.jp/contests/abc213/tasks/abc213_f", "datetime": 1628424000}, {"id": "abc257_g", "contest_id": "abc257", "problem_index": "G", "title": "G. Prefix Concatenation", "difficulty": 2078, "url": "https://atcoder.jp/contests/abc257/tasks/abc257_g", "datetime": 1656158400}, {"id": "abc268_h", "contest_id": "abc268", "problem_index": "Ex", "title": "Ex. Taboo", "difficulty": 2560, "url": "https://atcoder.jp/contests/abc268/tasks/abc268_h", "datetime": 1662811200}, {"id": "abc274_h", "contest_id": "abc274", "problem_index": "Ex", "title": "Ex. XOR Sum of Arrays", "difficulty": 3191, "url": "https://atcoder.jp/contests/abc274/tasks/abc274_h", "datetime": 1666440000}, {"id": "abc280_h", "contest_id": "abc280", "problem_index": "Ex", "title": "Ex. Substring Sort", "difficulty": 3307, "url": "https://atcoder.jp/contests/abc280/tasks/abc280_h", "datetime": 1670068800}, {"id": "abc284_f", "contest_id": "abc284", "problem_index": "F", "title": "F. ABCBAC", "difficulty": 1575, "url": "https://atcoder.jp/contests/abc284/tasks/abc284_f", "datetime": 1673092800}, {"id": "abc353_e", "contest_id": "abc353", "problem_index": "E", "title": "E. Yet Another Sigma Problem ", "difficulty": 1217, "url": "https://atcoder.jp/contests/abc353/tasks/abc353_e", "datetime": 1715428800}, {"id": "abc391_g", "contest_id": "abc391", "problem_index": "G", "title": "G. Many LCS", "difficulty": 2247, "url": "https://atcoder.jp/contests/abc391/tasks/abc391_g", "datetime": 1738411200}, {"id": "abc452_g", "contest_id": "abc452", "problem_index": "G", "title": "G. 221 Substring", "difficulty": 2255, "url": "https://atcoder.jp/contests/abc452/tasks/abc452_g", "datetime": 1775304000}, {"id": "arc156_c", "contest_id": "arc156", "problem_index": "C", "title": "C. Tree and LCS", "difficulty": 2155, "url": "https://atcoder.jp/contests/arc156/tasks/arc156_c", "datetime": 1676721600}, {"id": "arc157_f", "contest_id": "arc157", "problem_index": "F", "title": "F. XY Ladder LCS", "difficulty": 3517, "url": "https://atcoder.jp/contests/arc157/tasks/arc157_f", "datetime": 1677326400}, {"id": "arc189_c", "contest_id": "arc189", "problem_index": "C", "title": "C. Balls and Boxes", "difficulty": 2239, "url": "https://atcoder.jp/contests/arc189/tasks/arc189_c", "datetime": 1733659200}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

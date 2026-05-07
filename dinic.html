@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dinic's Algorithm</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Dinic's Algorithm</span></div>
+    <h1>Dinic's Algorithm</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc193_f", "contest_id": "abc193", "problem_index": "F", "title": "F. Zebraness", "difficulty": 2475, "url": "https://atcoder.jp/contests/abc193/tasks/abc193_f", "datetime": 1614427200}, {"id": "abc205_f", "contest_id": "abc205", "problem_index": "F", "title": "F. Grid and Tokens", "difficulty": 2088, "url": "https://atcoder.jp/contests/abc205/tasks/abc205_f", "datetime": 1623585600}, {"id": "abc225_g", "contest_id": "abc225", "problem_index": "G", "title": "G. X", "difficulty": 2566, "url": "https://atcoder.jp/contests/abc225/tasks/abc225_g", "datetime": 1635595200}, {"id": "abc259_g", "contest_id": "abc259", "problem_index": "G", "title": "G. Grid Card Game", "difficulty": 2428, "url": "https://atcoder.jp/contests/abc259/tasks/abc259_g", "datetime": 1657368000}, {"id": "abc274_g", "contest_id": "abc274", "problem_index": "G", "title": "G. Security Camera 3", "difficulty": 2340, "url": "https://atcoder.jp/contests/abc274/tasks/abc274_g", "datetime": 1666440000}, {"id": "abc285_g", "contest_id": "abc285", "problem_index": "G", "title": "G. Tatami", "difficulty": 2566, "url": "https://atcoder.jp/contests/abc285/tasks/abc285_g", "datetime": 1673784000}, {"id": "abc318_g", "contest_id": "abc318", "problem_index": "G", "title": "G. Typical Path Problem", "difficulty": 2260, "url": "https://atcoder.jp/contests/abc318/tasks/abc318_g", "datetime": 1693656000}, {"id": "abc320_g", "contest_id": "abc320", "problem_index": "G", "title": "G. Slot Strategy 2 (Hard)", "difficulty": 2575, "url": "https://atcoder.jp/contests/abc320/tasks/abc320_g", "datetime": 1694865600}, {"id": "abc332_g", "contest_id": "abc332", "problem_index": "G", "title": "G. Not Too Many Balls", "difficulty": 2775, "url": "https://atcoder.jp/contests/abc332/tasks/abc332_g", "datetime": 1702209600}, {"id": "abc347_g", "contest_id": "abc347", "problem_index": "G", "title": "G. Grid Coloring 2", "difficulty": 2876, "url": "https://atcoder.jp/contests/abc347/tasks/abc347_g", "datetime": 1711800000}, {"id": "abc397_g", "contest_id": "abc397", "problem_index": "G", "title": "G. Maximize Distance", "difficulty": 2947, "url": "https://atcoder.jp/contests/abc397/tasks/abc397_g", "datetime": 1742040000}, {"id": "abc401_g", "contest_id": "abc401", "problem_index": "G", "title": "G. Push Simultaneously", "difficulty": 2022, "url": "https://atcoder.jp/contests/abc401/tasks/abc401_g", "datetime": 1744459200}, {"id": "arc107_f", "contest_id": "arc107", "problem_index": "F", "title": "F. Sum of Abs", "difficulty": 3130, "url": "https://atcoder.jp/contests/arc107/tasks/arc107_f", "datetime": 1604145600}, {"id": "arc129_e", "contest_id": "arc129", "problem_index": "E", "title": "E. Yet Another Minimization", "difficulty": 3337, "url": "https://atcoder.jp/contests/arc129/tasks/arc129_e", "datetime": 1637496000}, {"id": "arc156_f", "contest_id": "arc156", "problem_index": "F", "title": "F. Make Same Set", "difficulty": 4011, "url": "https://atcoder.jp/contests/arc156/tasks/arc156_f", "datetime": 1676721600}, {"id": "arc161_f", "contest_id": "arc161", "problem_index": "F", "title": "F. Everywhere is Sparser than Whole (Judge)", "difficulty": 3106, "url": "https://atcoder.jp/contests/arc161/tasks/arc161_f", "datetime": 1685275200}, {"id": "arc176_e", "contest_id": "arc176", "problem_index": "E", "title": "E. Max Vector", "difficulty": 3101, "url": "https://atcoder.jp/contests/arc176/tasks/arc176_e", "datetime": 1713700800}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

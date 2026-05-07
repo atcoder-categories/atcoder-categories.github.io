@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LIS</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>LIS</span></div>
+    <h1>LIS</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc237_c", "contest_id": "abc237", "problem_index": "C", "title": "C. kasaka", "difficulty": 239, "url": "https://atcoder.jp/contests/abc237/tasks/abc237_c", "datetime": 1643544000}, {"id": "abc237_f", "contest_id": "abc237", "problem_index": "F", "title": "F. |LIS| = 3", "difficulty": 1857, "url": "https://atcoder.jp/contests/abc237/tasks/abc237_f", "datetime": 1643544000}, {"id": "abc240_h", "contest_id": "abc240", "problem_index": "Ex", "title": "Ex. Sequence of Substrings", "difficulty": 3184, "url": "https://atcoder.jp/contests/abc240/tasks/abc240_h", "datetime": 1645358400}, {"id": "abc262_g", "contest_id": "abc262", "problem_index": "G", "title": "G. LIS with Stack", "difficulty": 3114, "url": "https://atcoder.jp/contests/abc262/tasks/abc262_g", "datetime": 1659268800}, {"id": "abc339_f", "contest_id": "abc339", "problem_index": "F", "title": "F. Product Equality", "difficulty": 1716, "url": "https://atcoder.jp/contests/abc339/tasks/abc339_f", "datetime": 1706961600}, {"id": "abc354_f", "contest_id": "abc354", "problem_index": "F", "title": "F. Useless for LIS", "difficulty": 1639, "url": "https://atcoder.jp/contests/abc354/tasks/abc354_f", "datetime": 1716033600}, {"id": "abc360_g", "contest_id": "abc360", "problem_index": "G", "title": "G. Suitable Edit for LIS", "difficulty": 1982, "url": "https://atcoder.jp/contests/abc360/tasks/abc360_g", "datetime": 1719748800}, {"id": "abc369_f", "contest_id": "abc369", "problem_index": "F", "title": "F. Gather Coins", "difficulty": 1618, "url": "https://atcoder.jp/contests/abc369/tasks/abc369_f", "datetime": 1725105600}, {"id": "abc378_g", "contest_id": "abc378", "problem_index": "G", "title": "G. Everlasting LIDS", "difficulty": 3051, "url": "https://atcoder.jp/contests/abc378/tasks/abc378_g", "datetime": 1730548800}, {"id": "abc393_f", "contest_id": "abc393", "problem_index": "F", "title": "F. Prefix LIS Query ", "difficulty": 1284, "url": "https://atcoder.jp/contests/abc393/tasks/abc393_f", "datetime": 1739620800}, {"id": "abc439_e", "contest_id": "abc439", "problem_index": "E", "title": "E. Kite", "difficulty": 1071, "url": "https://atcoder.jp/contests/abc439/tasks/abc439_e", "datetime": 1767441600}, {"id": "agc052_d", "contest_id": "agc052", "problem_index": "D", "title": "D. Equal LIS", "difficulty": 3304, "url": "https://atcoder.jp/contests/agc052/tasks/agc052_d", "datetime": 1615118400}, {"id": "agc055_c", "contest_id": "agc055", "problem_index": "C", "title": "C. Weird LIS", "difficulty": 2803, "url": "https://atcoder.jp/contests/agc055/tasks/agc055_c", "datetime": 1635681600}, {"id": "arc104_e", "contest_id": "arc104", "problem_index": "E", "title": "E. Random LIS", "difficulty": 2824, "url": "https://atcoder.jp/contests/arc104/tasks/arc104_e", "datetime": 1601726400}, {"id": "arc125_c", "contest_id": "arc125", "problem_index": "C", "title": "C. LIS to Original Sequence", "difficulty": 1896, "url": "https://atcoder.jp/contests/arc125/tasks/arc125_c", "datetime": 1629633600}, {"id": "arc126_b", "contest_id": "arc126", "problem_index": "B", "title": "B. Cross-free Matching", "difficulty": 1370, "url": "https://atcoder.jp/contests/arc126/tasks/arc126_b", "datetime": 1632056400}, {"id": "arc133_b", "contest_id": "arc133", "problem_index": "B", "title": "B. Dividing Subsequence", "difficulty": 1317, "url": "https://atcoder.jp/contests/arc133/tasks/arc133_b", "datetime": 1642852800}, {"id": "arc149_b", "contest_id": "arc149", "problem_index": "B", "title": "B. Two LIS Sum", "difficulty": 983, "url": "https://atcoder.jp/contests/arc149/tasks/arc149_b", "datetime": 1664712000}, {"id": "arc159_d", "contest_id": "arc159", "problem_index": "D", "title": "D. LIS 2", "difficulty": 2056, "url": "https://atcoder.jp/contests/arc159/tasks/arc159_d", "datetime": 1680955200}, {"id": "arc175_d", "contest_id": "arc175", "problem_index": "D", "title": "D. LIS on Tree 2", "difficulty": 2276, "url": "https://atcoder.jp/contests/arc175/tasks/arc175_d", "datetime": 1711281600}, {"id": "arc180_e", "contest_id": "arc180", "problem_index": "E", "title": "E. LIS and Inversion", "difficulty": 3549, "url": "https://atcoder.jp/contests/arc180/tasks/arc180_e", "datetime": 1719662400}, {"id": "arc189_c", "contest_id": "arc189", "problem_index": "C", "title": "C. Balls and Boxes", "difficulty": 2239, "url": "https://atcoder.jp/contests/arc189/tasks/arc189_c", "datetime": 1733659200}, {"id": "arc206_b", "contest_id": "arc206", "problem_index": "B", "title": "B. Slime Swap", "difficulty": 1059, "url": "https://atcoder.jp/contests/arc206/tasks/arc206_b", "datetime": 1758456000}, {"id": "arc206_d", "contest_id": "arc206", "problem_index": "D", "title": "D. LIS \u2229 LDS", "difficulty": 1930, "url": "https://atcoder.jp/contests/arc206/tasks/arc206_d", "datetime": 1758456000}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

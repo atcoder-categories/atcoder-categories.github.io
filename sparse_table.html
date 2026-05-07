@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sparse Table</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Sparse Table</span></div>
+    <h1>Sparse Table</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc189_c", "contest_id": "abc189", "problem_index": "C", "title": "C. Mandarin Orange", "difficulty": 565, "url": "https://atcoder.jp/contests/abc189/tasks/abc189_c", "datetime": 1611403200}, {"id": "abc228_f", "contest_id": "abc228", "problem_index": "F", "title": "F. Stamp Game", "difficulty": 2179, "url": "https://atcoder.jp/contests/abc228/tasks/abc228_f", "datetime": 1637409600}, {"id": "abc274_h", "contest_id": "abc274", "problem_index": "Ex", "title": "Ex. XOR Sum of Arrays", "difficulty": 3191, "url": "https://atcoder.jp/contests/abc274/tasks/abc274_h", "datetime": 1666440000}, {"id": "abc282_f", "contest_id": "abc282", "problem_index": "F", "title": "F. Union of Two Sets", "difficulty": 1734, "url": "https://atcoder.jp/contests/abc282/tasks/abc282_f", "datetime": 1671278400}, {"id": "abc294_g", "contest_id": "abc294", "problem_index": "G", "title": "G. Distance Queries on a Tree", "difficulty": 1702, "url": "https://atcoder.jp/contests/abc294/tasks/abc294_g", "datetime": 1679227200}, {"id": "abc347_f", "contest_id": "abc347", "problem_index": "F", "title": "F. Non-overlapping Squares", "difficulty": 2179, "url": "https://atcoder.jp/contests/abc347/tasks/abc347_f", "datetime": 1711800000}, {"id": "arc189_d", "contest_id": "arc189", "problem_index": "D", "title": "D. Takahashi is Slime", "difficulty": 2006, "url": "https://atcoder.jp/contests/arc189/tasks/arc189_d", "datetime": 1733659200}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Möbius Inversion</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="breadcrumb"><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Möbius Inversion</span></div>
+    <h1>Möbius Inversion</h1>
+  </div>
+
+  <div class="user-bar">
+    <input class="user-input" type="text" id="username-input" placeholder="atcoder username" />
+    <button class="fetch-btn" id="fetch-btn" disabled>Fetch</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">Solved &nbsp;<span class="stat-count" id="stat-solved">— / —</span></div>
+    <div class="stat">Attempting &nbsp;<span class="stat-count" id="stat-attempting">— / —</span></div>
+  </div>
+
+<div class="filter-bar">
+  <div class="filter-row">
+    <button class="filter-btn" data-filter="abc">ABC</button>
+    <button class="filter-btn" data-filter="arc">ARC</button>
+    <button class="filter-btn" data-filter="agc">AGC</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+  </div>
+  <div class="filter-row">
+    <select class="filter-select" id="order-filter">
+      <option value="new-to-old">New to Old</option>
+      <option value="old-to-new">Old to New</option>
+      <option value="random" selected>Random</option>
+    </select>
+    <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
+    <select class="filter-select" id="difficulty-sort" disabled>
+      <option value="none" selected>Don't Sort with Diff</option>
+      <option value="easy-to-hard">Easy to Hard</option>
+      <option value="hard-to-easy">Hard to Easy</option>
+    </select>
+    <div class="filter-divider"></div>
+    <select class="filter-select" id="status-filter">
+      <option value="" disabled>Filter by Status</option>
+      <option value="all" selected>All</option>
+      <option value="not-tried">Not Attempted</option>
+      <option value="tried">Attempted</option>
+      <option value="unsolved">Unsolved</option>
+      <option value="solved">Solved</option>
+    </select>
+  </div>
+  <div class="filter-row">
+  <input class="filter-input" type="number" id="min-difficulty" placeholder="Min Difficulty" min="0">
+  <input class="filter-input" type="number" id="max-difficulty" placeholder="Max Difficulty" min="0">
+  <button class="filter-btn active" id="toggle-difficulty">Hide Difficulty</button>
+</div>
+</div>
+
+  <div class="table-head">
+    <span>#</span>
+    <span>ID</span>
+    <span>Title</span>
+    <span>Difficulty</span>
+    <span></span>
+  </div>
+
+  <div class="problem-list" id="problem-list"></div>
+
+</div>
+<button class="theme-btn" id="theme-btn">Light</button>
+<script>
+const PROBLEMS = [{"id": "abc215_h", "contest_id": "abc215", "problem_index": "H", "title": "H. Cabbage Master", "difficulty": 3101, "url": "https://atcoder.jp/contests/abc215/tasks/abc215_h", "datetime": 1629547200}, {"id": "abc230_g", "contest_id": "abc230", "problem_index": "G", "title": "G. GCD Permutation", "difficulty": 2516, "url": "https://atcoder.jp/contests/abc230/tasks/abc230_g", "datetime": 1638532800}, {"id": "abc304_f", "contest_id": "abc304", "problem_index": "F", "title": "F. Shift Table", "difficulty": 1619, "url": "https://atcoder.jp/contests/abc304/tasks/abc304_f", "datetime": 1685793600}, {"id": "abc349_f", "contest_id": "abc349", "problem_index": "F", "title": "F. Subsequence LCM", "difficulty": 2169, "url": "https://atcoder.jp/contests/abc349/tasks/abc349_f", "datetime": 1713009600}, {"id": "arc123_f", "contest_id": "arc123", "problem_index": "F", "title": "F. Insert Addition", "difficulty": 3424, "url": "https://atcoder.jp/contests/arc123/tasks/arc123_f", "datetime": 1626609600}];
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>
