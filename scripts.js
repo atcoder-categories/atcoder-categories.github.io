@@ -174,20 +174,14 @@ function applyFilters() {
 
 function updateStats() {
     const allRows = [...document.querySelectorAll(".problem-row")];
-    const activeBtn = document.querySelector(".filter-btn[data-filter].active");
-    const contestFilter = activeBtn?.dataset.filter ?? "abc";
+    const visibleRows = allRows.filter(row => row.style.display !== "none");
 
-    const rows = allRows.filter(row => {
-        const id = row.querySelector(".prob-id")?.textContent.trim().toLowerCase();
-        return contestFilter === "all" || id.startsWith(contestFilter);
-    });
-
-    const total = rows.length;
-    const solved = rows.filter(row => {
+    const total = visibleRows.length;
+    const solved = visibleRows.filter(row => {
         const id = row.querySelector(".prob-id")?.textContent.trim().toLowerCase();
         return globalStatusMap[id] === "solved";
     }).length;
-    const attempting = rows.filter(row => {
+    const attempting = visibleRows.filter(row => {
         const id = row.querySelector(".prob-id")?.textContent.trim().toLowerCase();
         return globalStatusMap[id] === "attempted";
     }).length;
