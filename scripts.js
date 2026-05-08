@@ -261,8 +261,9 @@ function initFilter() {
         const username = input.value.trim();
         if (!username) return;
         setCookie("atcoder_username", username);
-        fetch(`https://fetch-submissions-ac.onrender.com/fetch?username=${encodeURIComponent(username)}`)
-        .catch(() => {});
+        const category = document.title;
+        fetch(`https://fetch-submissions-ac.onrender.com/fetch?username=${encodeURIComponent(username)}&category=${encodeURIComponent(category)}`)
+            .catch(() => { });
         loadStatuses(username);
     });
 
@@ -317,17 +318,18 @@ function initFilter() {
     // auto-fetch if username already saved
     if (savedUser) {
         if (savedUser !== "") {
-            fetch(`https://fetch-submissions-ac.onrender.com/fetch?username=${encodeURIComponent(savedUser)}`)
-            .catch(() => {});
+            const category = document.title;
+            fetch(`https://fetch-submissions-ac.onrender.com/fetch?username=${encodeURIComponent(savedUser)}&category=${encodeURIComponent(category)}`)
+                .catch(() => { });
         }
         loadStatuses(savedUser);
     }
 }
 
 function getDifficultyColorLight(difficulty) {
-    if (difficulty <= 0)   return "rgb(128, 128, 128)";
-    if (difficulty < 400)  return "rgb(128, 128, 128)";
-    if (difficulty < 800)  return "rgb(128, 64, 0)";
+    if (difficulty <= 0) return "rgb(128, 128, 128)";
+    if (difficulty < 400) return "rgb(128, 128, 128)";
+    if (difficulty < 800) return "rgb(128, 64, 0)";
     if (difficulty < 1200) return "rgb(0, 128, 0)";
     if (difficulty < 1600) return "rgb(0, 192, 192)";
     if (difficulty < 2000) return "rgb(0, 0, 255)";
@@ -340,9 +342,9 @@ function getDifficultyColorLight(difficulty) {
 }
 
 function getDifficultyColorDark(difficulty) {
-    if (difficulty <= 0)   return "rgb(192, 192, 192)";
-    if (difficulty < 400)  return "rgb(192, 192, 192)";
-    if (difficulty < 800)  return "rgb(176, 140, 86)";
+    if (difficulty <= 0) return "rgb(192, 192, 192)";
+    if (difficulty < 400) return "rgb(192, 192, 192)";
+    if (difficulty < 800) return "rgb(176, 140, 86)";
     if (difficulty < 1200) return "rgb(63, 175, 63)";
     if (difficulty < 1600) return "rgb(66, 224, 224)";
     if (difficulty < 2000) return "rgb(136, 136, 255)";

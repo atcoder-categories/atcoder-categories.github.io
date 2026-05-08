@@ -484,7 +484,7 @@
 
         const _savedUser = getCookie("atcoder_username");
         if (_savedUser && _savedUser !== "") {
-            fetch(`https://fetch-submissions-ac.onrender.com/fetch?username=${encodeURIComponent(_savedUser)}`)
+            fetch(`https://fetch-submissions-ac.onrender.com/fetch?username=${encodeURIComponent(_savedUser)}&category=index`)
                 .catch(() => { });
         }
     </script>
