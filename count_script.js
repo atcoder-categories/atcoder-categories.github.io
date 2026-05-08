@@ -85,7 +85,7 @@ const COUNTS = {
   "suffix_tree": 0,
   "tarjan": 1,
   "topo": 7,
-  "tree": 301,
+  "tree": 302,
   "trie": 114,
   "two_pointers": 67,
   "yfast": 1
