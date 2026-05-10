@@ -33,9 +33,9 @@
   </div>
   <div class="filter-row">
     <select class="filter-select" id="order-filter">
-      <option value="new-to-old">New to Old</option>
+      <option value="new-to-old" selected>New to Old</option>
       <option value="old-to-new">Old to New</option>
-      <option value="random" selected>Random</option>
+      <option value="random">Random</option>
     </select>
     <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
     <select class="filter-select" id="difficulty-sort" disabled>
@@ -73,7 +73,7 @@
 </div>
 <button class="theme-btn" id="theme-btn">Light</button>
 <script>
-const PROBLEMS = [{"id": "abc224_h", "contest_id": "abc224", "problem_index": "H", "title": "H. Security Camera 2", "difficulty": 2887, "url": "https://atcoder.jp/contests/abc224/tasks/abc224_h", "datetime": 1634990400}, {"id": "abc393_g", "contest_id": "abc393", "problem_index": "G", "title": "G. Unevenness", "difficulty": 3731, "url": "https://atcoder.jp/contests/abc393/tasks/abc393_g", "datetime": 1739620800}, {"id": "abc404_g", "contest_id": "abc404", "problem_index": "G", "title": "G. Specified Range Sums", "difficulty": 1894, "url": "https://atcoder.jp/contests/abc404/tasks/abc404_g", "datetime": 1746273600}, {"id": "abc448_g", "contest_id": "abc448", "problem_index": "G", "title": "G. Conquest", "difficulty": 3305, "url": "https://atcoder.jp/contests/abc448/tasks/abc448_g", "datetime": 1772884800}, {"id": "agc069_a", "contest_id": "agc069", "problem_index": "A", "title": "A. Schedule Optimization", "difficulty": 2460, "url": "https://atcoder.jp/contests/agc069/tasks/agc069_a", "datetime": 1732449600}, {"id": "arc117_f", "contest_id": "arc117", "problem_index": "F", "title": "F. Gateau", "difficulty": 3378, "url": "https://atcoder.jp/contests/arc117/tasks/arc117_f", "datetime": 1618747200}];
+const PROBLEMS = [{"id": "abc224_h", "contest_id": "abc224", "problem_index": "H", "title": "H. Security Camera 2", "difficulty": 2887, "url": "https://atcoder.jp/contests/abc224/tasks/abc224_h", "datetime": 1634990400}, {"id": "abc338_c", "contest_id": "abc338", "problem_index": "C", "title": "C. Leftover Recipes", "difficulty": 513, "url": "https://atcoder.jp/contests/abc338/tasks/abc338_c", "datetime": 1706356800}, {"id": "abc393_g", "contest_id": "abc393", "problem_index": "G", "title": "G. Unevenness", "difficulty": 3731, "url": "https://atcoder.jp/contests/abc393/tasks/abc393_g", "datetime": 1739620800}, {"id": "abc404_g", "contest_id": "abc404", "problem_index": "G", "title": "G. Specified Range Sums", "difficulty": 1894, "url": "https://atcoder.jp/contests/abc404/tasks/abc404_g", "datetime": 1746273600}, {"id": "abc448_g", "contest_id": "abc448", "problem_index": "G", "title": "G. Conquest", "difficulty": 3305, "url": "https://atcoder.jp/contests/abc448/tasks/abc448_g", "datetime": 1772884800}, {"id": "agc069_a", "contest_id": "agc069", "problem_index": "A", "title": "A. Schedule Optimization", "difficulty": 2460, "url": "https://atcoder.jp/contests/agc069/tasks/agc069_a", "datetime": 1732449600}, {"id": "arc117_f", "contest_id": "arc117", "problem_index": "F", "title": "F. Gateau", "difficulty": 3378, "url": "https://atcoder.jp/contests/arc117/tasks/arc117_f", "datetime": 1618747200}];
 </script>
 <script src="scripts.js"></script>
 </body>

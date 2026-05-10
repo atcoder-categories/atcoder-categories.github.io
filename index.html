@@ -372,7 +372,8 @@
                 <a href="mailto:atcodercategories@gmail.com"
                     style="font-family:'JetBrains Mono',monospace;font-size:12px;padding:8px 20px;border-radius:6px;border:1px solid var(--border);color:var(--text-secondary);text-decoration:none;transition:all 0.15s ease;"
                     onmouseover="this.style.borderColor='var(--accent-blue)';this.style.color='var(--accent-blue)'"
-                    onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-secondary)'">Feedback / Issue</a>
+                    onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-secondary)'">Feedback
+                    / Issue</a>
                 <a href="https://buymeacoffee.com/npc0x0" target="_blank"
                     style="font-family:'JetBrains Mono',monospace;font-size:12px;padding:8px 20px;border-radius:6px;border:1px solid var(--border);color:var(--text-secondary);text-decoration:none;transition:all 0.15s ease;"
                     onmouseover="this.style.borderColor='var(--accent-blue)';this.style.color='var(--accent-blue)'"
@@ -493,7 +494,9 @@
             {
                 title: "Sorting & Searching", href: "sorting.html", subs: [
                     { title: "Inversions", href: "inversions.html" },
-                    { title: "Binary Search", href: "binary_search.html" },
+                    { title: "Binary Search", href: "binary_search.html", expandable: true, subsubs: [
+                        { title: "Binary Search Over Solution", href: "binary_search_on_answer.html" },
+                    ] },
                     { title: "Two Pointers / Sliding Window", href: "two_pointers.html" },
                     { title: "Stacks / Queues", href: "stacks_queues.html" },
                     { title: "Binary Heap / Priority Queue", href: "heap.html" }
@@ -525,6 +528,7 @@
                     { title: "Euler Path / Cycle", href: "euler.html" },
                     { title: "Hamiltonian Path / Cycle", href: "hamiltonian.html" },
                     { title: "Bridges / Articulation Points", href: "bridges.html" },
+                    { title: "Disjoint Set Union", href: "dsu.html" },
                     { title: "Spanning Trees / MST", href: "mst.html" },
                     {
                         title: "Shortest Path", href: "shortest_path.html", expandable: true, subsubs: [
@@ -532,12 +536,14 @@
                             { title: "Bellman-Ford Algorithm", href: "bellman_ford.html" },
                             { title: "Floyd-Warshall Algorithm", href: "floyd_warshall.html" }
                         ]
-                    }
-                ]
-            },
-            { title: "Disjoint Set Union", href: "dsu.html", subs: [] },
-            {
-                title: "Flow / Matching", href: "flowmatching.html", subs: [
+                    },
+                    {
+                        title: "Tree Algorithms", href: "tree.html", expandable: true, subsubs: [
+                            { title: "Binary Lifting / LCA", href: "lca.html" },
+                            { title: "Heavy-Light Decomposition", href: "hld.html" },
+                            { title: "Centroid Decomposition", href: "centroid.html" },
+                        ]
+                    },
                     {
                         title: "Matchings", href: "matching.html", expandable: true, subsubs: [
                             { title: "Hopcroft-Karp Algorithm", href: "hopcroft_karp.html" },
@@ -554,26 +560,23 @@
                 ]
             },
             {
-                title: "Tree Algorithms", href: "tree.html", subs: [
-                    { title: "Binary Lifting / LCA", href: "lca.html" },
-                    { title: "Heavy-Light Decomposition", href: "hld.html" },
-                    { title: "Centroid Decomposition", href: "centroid.html" },
-                ]
-            },
-            {
                 title: "Range Queries", href: "range.html", subs: [
+                    { title: "Prefix Sums", href: "prefix_sum.html" },
                     { title: "Segment Tree", href: "segment_tree.html" },
                     { title: "Fenwick Tree", href: "fenwick.html" },
                     { title: "Sparse Table", href: "sparse_table.html" },
                     { title: "Splay Tree", href: "splay.html" },
-                    { title: "Y-Fast Trie", href: "yfast.html" }
+                    { title: "Y-Fast Trie", href: "yfast.html" },
+                    { title: "Sqrt Decomposition / Mo's Algorithm", href: "sqrt_decomposition.html" },
+                    { title: "Sqrt Tree", href: "sqrt_tree.html" }
                 ]
             },
             {
                 title: "Combinatorics / Counting", href: "counting.html", subs: [
                     { title: "Inclusion / Exclusion", href: "inclusion_exclusion.html" },
                     { title: "Pigeonhole Principle", href: "pigeonhole.html" },
-                    { title: "FPS / Generating Functions", href: "gf.html" }
+                    { title: "FPS / Generating Functions", href: "gf.html" },
+                    { title: "Burnside's Lemma / Pólya Enumeration", href: "burnside_polya.html" }
                 ]
             },
             { title: "Probability / Expected Value", href: "probability.html", subs: [] },
@@ -590,19 +593,18 @@
                     },
                     { title: "Matrix / Binary Exponentiation", href: "binary_exp.html" },
                     { title: "Diophantine Equations", href: "nt_diophantine.html" },
-                    { title: "Modular Arithmetic", href: "nt_modular.html" },
-                    { title: "Chinese Remainder Theorem", href: "nt_crt.html" },
                     {
-                        title: "Residues & Primitive Roots", href: "nt_residues.html", expandable: true, subsubs: [
+                        title: "Modular Arithmetic", href: "nt_modular.html", expandable: true, subsubs: [
+                            { title: "Chinese Remainder Theorem", href: "nt_crt.html" },
                             { title: "Multiplicative Order", href: "nt_mult_order.html" },
-                            { title: "Primitive Roots mod p / p^n", href: "nt_prim_roots.html" }
+                            { title: "Primitive Roots", href: "nt_prim_roots.html" }
                         ]
                     },
                     {
                         title: "Number-Theoretic Functions", href: "nt_functions.html", expandable: true, subsubs: [
                             { title: "Number of Divisors / Sum of Divisors", href: "nt_num_div.html" },
                             { title: "Euler's Totient", href: "nt_totient.html" },
-                            { title: "Möbius Inversion", href: "nt_mobius.html" }
+                            { title: "Möbius Function / Inversion", href: "nt_mobius.html" }
                         ]
                     },
                     { title: "Fast Fourier Transform / NTT", href: "fft.html" }
@@ -629,8 +631,11 @@
             { title: "Subsets / Set Partitions", href: "subsets.html", subs: [] },
             { title: "Linear Programming", href: "lp.html", subs: [] },
             { title: "Geometry", href: "geometry.html", subs: [] },
-            { title: "Construction Problems", href: "construction.html", subs: [] },
             { title: "Interactive Problems", href: "interactive.html", subs: [] },
+            { title: "Miscellaneous", href: "misc.html", subs: [
+                { title: "Min/Max", href: "minmax.html" },
+                { title: "MEX", href: "mex.html" },
+            ] },
             { title: "Other / Uncategorized", href: "other.html", subs: [] },
         ];
 

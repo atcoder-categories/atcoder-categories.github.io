@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Residues & Primitive Roots</title>
+<title>Burnside's Lemma / Pólya Enumeration</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="page">
 
   <div class="header">
-    <div class="breadcrumb"><a href="https://atcoder-categories.github.io" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Residues & Primitive Roots</span></div>
-    <h1>Residues & Primitive Roots</h1>
+    <div class="breadcrumb"><a href="https://atcoder-categories.github.io" style="color: var(--text-muted); text-decoration: none;">Problems</a> &nbsp;/&nbsp; <span>Burnside's Lemma / Pólya Enumeration</span></div>
+    <h1>Burnside's Lemma / Pólya Enumeration</h1>
   </div>
 
   <div class="user-bar">
@@ -33,9 +33,9 @@
   </div>
   <div class="filter-row">
     <select class="filter-select" id="order-filter">
-      <option value="new-to-old">New to Old</option>
+      <option value="new-to-old" selected>New to Old</option>
       <option value="old-to-new">Old to New</option>
-      <option value="random" selected>Random</option>
+      <option value="random">Random</option>
     </select>
     <button class="filter-btn" id="shuffle-btn">⇌ Shuffle</button>
     <select class="filter-select" id="difficulty-sort" disabled>
@@ -73,7 +73,7 @@
 </div>
 <button class="theme-btn" id="theme-btn">Light</button>
 <script>
-const PROBLEMS = [{"id": "abc212_g", "contest_id": "abc212", "problem_index": "G", "title": "G. Power Pair", "difficulty": 2150, "url": "https://atcoder.jp/contests/abc212/tasks/abc212_g", "datetime": 1627732800}, {"id": "abc274_h", "contest_id": "abc274", "problem_index": "Ex", "title": "Ex. XOR Sum of Arrays", "difficulty": 3191, "url": "https://atcoder.jp/contests/abc274/tasks/abc274_h", "datetime": 1666440000}, {"id": "abc333_f", "contest_id": "abc333", "problem_index": "F", "title": "F. Bomb Game 2", "difficulty": 1770, "url": "https://atcoder.jp/contests/abc333/tasks/abc333_f", "datetime": 1702728000}, {"id": "abc335_g", "contest_id": "abc335", "problem_index": "G", "title": "G. Discrete Logarithm Problems", "difficulty": 2614, "url": "https://atcoder.jp/contests/abc335/tasks/abc335_g", "datetime": 1704542400}, {"id": "agc047_c", "contest_id": "agc047", "problem_index": "C", "title": "C. Product Modulo", "difficulty": 2496, "url": "https://atcoder.jp/contests/agc047/tasks/agc047_c", "datetime": 1596974400}, {"id": "arc166_f", "contest_id": "arc166", "problem_index": "F", "title": "F. Tangent Addition Formula", "difficulty": 3692, "url": "https://atcoder.jp/contests/arc166/tasks/arc166_f", "datetime": 1696766400}, {"id": "arc171_f", "contest_id": "arc171", "problem_index": "F", "title": "F. Both Reversible", "difficulty": 3730, "url": "https://atcoder.jp/contests/arc171/tasks/arc171_f", "datetime": 1707048000}, {"id": "arc190_d", "contest_id": "arc190", "problem_index": "D", "title": "D. Matrix Pow Sum", "difficulty": 2802, "url": "https://atcoder.jp/contests/arc190/tasks/arc190_d", "datetime": 1736683200}, {"id": "arc191_c", "contest_id": "arc191", "problem_index": "C", "title": "C. A^n - 1", "difficulty": 2198, "url": "https://atcoder.jp/contests/arc191/tasks/arc191_c", "datetime": 1737892800}];
+const PROBLEMS = [{"id": "abc198_f", "contest_id": "abc198", "problem_index": "F", "title": "F. Cube", "difficulty": 2769, "url": "https://atcoder.jp/contests/abc198/tasks/abc198_f", "datetime": 1618142400}, {"id": "abc284_h", "contest_id": "abc284", "problem_index": "Ex", "title": "Ex. Count Unlabeled Graphs", "difficulty": 3125, "url": "https://atcoder.jp/contests/abc284/tasks/abc284_h", "datetime": 1673092800}, {"id": "abc428_g", "contest_id": "abc428", "problem_index": "G", "title": "G. Necklace", "difficulty": 2472, "url": "https://atcoder.jp/contests/abc428/tasks/abc428_g", "datetime": 1760790600}];
 </script>
 <script src="scripts.js"></script>
 </body>
