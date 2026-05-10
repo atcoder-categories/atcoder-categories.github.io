@@ -285,9 +285,6 @@ function initFilter() {
         const diffSort = document.getElementById("difficulty-sort");
         if (document.getElementById("order-filter").value === "random") {
             diffSort.value = "none";
-            diffSort.disabled = true;
-        } else {
-            diffSort.disabled = false;
         }
         applySort();
     });
@@ -296,11 +293,18 @@ function initFilter() {
         document.getElementById("order-filter").value = "random";
         const diffSort = document.getElementById("difficulty-sort");
         diffSort.value = "none";
-        diffSort.disabled = true;
-        document.getElementById("shuffle-btn").disabled = false;
         applySort();
     });
-    document.getElementById("difficulty-sort").addEventListener("change", applySort);
+    document.getElementById("difficulty-sort").addEventListener("change", () => {
+        const orderFilter = document.getElementById("order-filter");
+        const diffSort = document.getElementById("difficulty-sort");
+        if (diffSort.value !== "none") {
+            if (orderFilter.value === "random") {
+                orderFilter.value = "new-to-old";
+            }
+        }
+        applySort();
+    });
 
     document.getElementById("toggle-difficulty").addEventListener("click", () => {
         const btn = document.getElementById("toggle-difficulty");
