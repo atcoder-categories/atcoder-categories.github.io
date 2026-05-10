@@ -40,7 +40,7 @@ const COUNTS = {
   "hopcroft_karp": 2,
   "hungarian": 1,
   "inclusion_exclusion": 85,
-  "interactive": 0,
+  "interactive": 18,
   "inversions": 54,
   "kmp": 9,
   "lca": 30,
