@@ -113,6 +113,13 @@ function renderRows(problems) {
         if (status === "solved" || status === "attempted") {
             const labelMap = window._labelMap || {};
             addBadge(a, status, labelMap[problem.id] || (status === "solved" ? "AC" : "?"));
+            if (status === "solved") {
+                if (isLight()) a.style = "background-color: #c3e6cb";
+                else a.style = "background-color: #005c08";
+            } else {
+                if (isLight()) a.style = "background-color: #ffeeba";
+                else a.style = "background-color: #5d3e00";
+            }
         }
         list.appendChild(a);
     });
