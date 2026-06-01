@@ -363,6 +363,7 @@ h1 {
 .filter-input[type=number] {
   -moz-appearance: textfield;
 }
+
 .support-bar {
   display: flex;
   align-items: center;
