@@ -105,7 +105,8 @@ function renderRows(problems) {
         const a = document.createElement("a");
         a.target = "_blank";
         a.className = "problem-row";
-        a.href = problem.url;
+        // a.href = problem.url;
+        a.href = "https://atcoder.jp/contests/" + problem.id.split("_")[0] + "/tasks/" + problem.id;
         a.dataset.id = problem.id;
         var prob_title_fixed = problem.id.toUpperCase().split("_")[1] + ".";
         prob_title_fixed += problem.title.split(".")[1];
