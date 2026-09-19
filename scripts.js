@@ -99,12 +99,14 @@ function renderRows(problems) {
         a.className = "problem-row";
         a.href = problem.url;
         a.dataset.id = problem.id;
+        var prob_title_fixed = problem.id.toUpperCase().split("_")[1] + ".";
+        prob_title_fixed += problem.title.split(".")[1];
         a.innerHTML = `
   <span class="prob-number">${i + 1}</span>
   <span class="prob-id">${problem.id.toUpperCase()}</span>
   <span class="prob-title-wrap">
     ${getDifficultyCircle(problem.difficulty)}
-    <span class="prob-title" style="color:${getDifficultyColor(problem.difficulty)}" data-color="${getDifficultyColor(problem.difficulty)}">${problem.title}</span>
+    <span class="prob-title" style="color:${getDifficultyColor(problem.difficulty)}" data-color="${getDifficultyColor(problem.difficulty)}">${prob_title_fixed}</span>
   </span>
   <span class="prob-difficulty">${problem.difficulty}</span>
 `;
