@@ -71,7 +71,7 @@ const COUNTS = {
   "nt_uf": 1,
   "other": 0,
   "pigeonhole": 15,
-  "practice": 3546,
+  "practice": 3703,
   "prefix_sum": 213,
   "probability": 165,
   "range": 380,
