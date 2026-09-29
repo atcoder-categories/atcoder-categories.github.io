@@ -102,38 +102,41 @@ function renderRows(problems) {
     const list = document.getElementById("problem-list");
     list.innerHTML = "";
     problems.forEach((problem, i) => {
-        const a = document.createElement("a");
-        a.target = "_blank";
-        a.className = "problem-row";
-        // a.href = problem.url;
-        a.href = "https://atcoder.jp/contests/" + problem.id.split("_")[0] + "/tasks/" + problem.id;
-        a.dataset.id = problem.id;
-        var prob_title_fixed = problem.id.toUpperCase().split("_")[1] + ".";
-        prob_title_fixed += problem.title.split(".")[1];
-        a.innerHTML = `
-  <span class="prob-number">${i + 1}</span>
-  <span class="prob-id">${problem.id.toUpperCase()}</span>
-  <span class="prob-title-wrap">
-    ${getDifficultyCircle(problem.difficulty)}
-    <span class="prob-title" style="color:${getDifficultyColor(problem.difficulty)}" data-color="${getDifficultyColor(problem.difficulty)}">${prob_title_fixed}</span>
-  </span>
-  <span class="prob-submission-time">${formatEpoch(problem.epoch_second)}</span>
-  <span class="prob-difficulty">${problem.difficulty}</span>
-`;
-        // re-attach badge if status already loaded
-        const status = globalStatusMap[problem.id];
-        if (status === "solved" || status === "attempted") {
-            const labelMap = window._labelMap || {};
-            addBadge(a, status, labelMap[problem.id] || (status === "solved" ? "AC" : "?"));
-            if (status === "solved") {
-                if (isLight()) a.style = "background-color: #c3e6cb";
-                else a.style = "background-color: #005c08";
-            } else {
-                if (isLight()) a.style = "background-color: #ffeeba";
-                else a.style = "background-color: #5d3e00";
+        const contestName = problem.id.split("_")[0].substring(0, 3);
+        if (contestName === "abc" && parseInt(problem.id.split("_")[0].substring(3), 10) > 41 || contestName === "arc" && parseInt(problem.id.split("_")[0].substring(3), 10) > 57 || contestName === "agc") {
+            const a = document.createElement("a");
+            a.target = "_blank";
+            a.className = "problem-row";
+            // a.href = problem.url;
+            a.href = "https://atcoder.jp/contests/" + problem.id.split("_")[0] + "/tasks/" + problem.id;
+            a.dataset.id = problem.id;
+            var prob_title_fixed = problem.id.toUpperCase().split("_")[1] + ".";
+            prob_title_fixed += problem.title.split(".")[1];
+            a.innerHTML = `
+    <span class="prob-number">${i + 1}</span>
+    <span class="prob-id">${problem.id.toUpperCase()}</span>
+    <span class="prob-title-wrap">
+        ${getDifficultyCircle(problem.difficulty)}
+        <span class="prob-title" style="color:${getDifficultyColor(problem.difficulty)}" data-color="${getDifficultyColor(problem.difficulty)}">${prob_title_fixed}</span>
+    </span>
+    <span class="prob-submission-time">${formatEpoch(problem.epoch_second)}</span>
+    <span class="prob-difficulty">${problem.difficulty}</span>
+    `;
+            // re-attach badge if status already loaded
+            const status = globalStatusMap[problem.id];
+            if (status === "solved" || status === "attempted") {
+                const labelMap = window._labelMap || {};
+                addBadge(a, status, labelMap[problem.id] || (status === "solved" ? "AC" : "?"));
+                if (status === "solved") {
+                    if (isLight()) a.style = "background-color: #c3e6cb";
+                    else a.style = "background-color: #005c08";
+                } else {
+                    if (isLight()) a.style = "background-color: #ffeeba";
+                    else a.style = "background-color: #5d3e00";
+                }
             }
+            list.appendChild(a);
         }
-        list.appendChild(a);
     });
     applyDifficultyVisibility();
 }
